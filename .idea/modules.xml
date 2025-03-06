@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/elitraswaperplus.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/elitraswaperplus.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/elitraswaperplus.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/elitraswaperplus.common.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/elitraswaperplus.common.test.iml" filepath="$PROJECT_DIR$/.idea/modules/common/elitraswaperplus.common.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric/elitraswaperplus.fabric.main.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric/elitraswaperplus.fabric.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric/elitraswaperplus.fabric.test.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric/elitraswaperplus.fabric.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/neoforge/elitraswaperplus.neoforge.main.iml" filepath="$PROJECT_DIR$/.idea/modules/neoforge/elitraswaperplus.neoforge.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/neoforge/elitraswaperplus.neoforge.test.iml" filepath="$PROJECT_DIR$/.idea/modules/neoforge/elitraswaperplus.neoforge.test.iml" />
+    </modules>
+  </component>
+</project>
