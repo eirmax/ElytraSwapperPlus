@@ -29,8 +29,8 @@ public final class ElytraSwaperPlusFabricClient implements ClientModInitializer 
         }
 
         @Override
-        public void registerClientTickEvent(Consumer<MinecraftClient> o) {
-            ClientTickEvents.END_CLIENT_TICK.register(o::accept);
+        public void registerClientTickEvent(Consumer<MinecraftClient> minecraftclient) {
+            ClientTickEvents.END_CLIENT_TICK.register(minecraftclient::accept);
         }
 
         @Override
