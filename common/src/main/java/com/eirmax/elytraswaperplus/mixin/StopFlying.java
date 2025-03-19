@@ -1,31 +1,29 @@
 package com.eirmax.elytraswaperplus.mixin;
 
-import com.eirmax.elytraswaperplus.Utils.ArmorHelperUtil;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import com.eirmax.elytraswaperplus.utils.ArmorHelperUtil;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
-@Mixin(ClientPlayerEntity.class)
+@Mixin(Player.class)
 public class StopFlying {
-    @Inject(method = "tickMovement", at = @At("TAIL"))
+    @Inject(method = "tick", at = @At("TAIL"))
     public void onTickMovementEnd(CallbackInfo ci) {
-        ClientPlayerEntity player = (ClientPlayerEntity) (Object) this;
+        Player player = (Player) (Object) this;
 
-        if (player.isOnGround() &&
-                player.getEquippedStack(EquipmentSlot.CHEST).getItem() == Items.ELYTRA) {
+        if (player.onGround() &&
+                player.getItemBySlot(EquipmentSlot.CHEST).getItem().equals(Items.ELYTRA)) {
 
             ItemStack bestChestplate = ArmorHelperUtil.getBestChestplate(player);
             if (bestChestplate != null) {
-                player.equipStack(EquipmentSlot.CHEST, bestChestplate);
+                player.setItemSlot(EquipmentSlot.CHEST, bestChestplate);
             }
         }
-
-
     }
 }

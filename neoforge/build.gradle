@@ -3,6 +3,8 @@ plugins {
 }
 
 architectury {
+
+
     platformSetupLoomIde()
     neoForge()
 }
@@ -21,6 +23,10 @@ configurations {
     shadowBundle {
         canBeResolved = true
         canBeConsumed = false
+    }
+
+    accessTransformers {
+        file('src/main/resources/META-INF/accesstransformer.cfg')
     }
 }
 
