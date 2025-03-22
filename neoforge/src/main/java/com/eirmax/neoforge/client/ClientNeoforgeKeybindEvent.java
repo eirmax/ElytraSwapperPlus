@@ -21,7 +21,7 @@ public class ClientNeoforgeKeybindEvent {
 
     @SubscribeEvent
     public static void registerBindings(RegisterKeyMappingsEvent event) {
-        KeyMapping bind = new KeyMapping("key.elytraswapplus.swap", GLFW.GLFW_KEY_R, "category.elytraswapplus");
+        KeyMapping bind = new KeyMapping("key.elytraswaperplus.swap", GLFW.GLFW_KEY_R, "category.elytraswaperplus");
         keyMappings.add(Lazy.of(() -> bind));
 
         for (Lazy<KeyMapping> key : keyMappings) {
