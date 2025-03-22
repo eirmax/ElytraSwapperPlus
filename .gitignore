@@ -7,4 +7,10 @@
 /neoforge/build/
 /fabric/run
 /neoforge/run
-/.idea
+/.idea/modules/common
+/.idea/modules/fabric
+/.idea/modules/neoforge
+/.idea/runConfigurations
+.idea
+/fabric/.settings
+/common/.settings
