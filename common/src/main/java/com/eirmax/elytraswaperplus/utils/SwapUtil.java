@@ -9,30 +9,45 @@ import net.minecraft.world.item.Items;
 public class SwapUtil {
     public static void tryWearElytra(Player player) {
         ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
-        ItemStack elytra = findElytra(player);
+        ItemStack elytra = ArmorHelperUtil.findElytra(player);
+
         if (elytra != null && !chestplate.is(Items.ELYTRA)) {
+            if (player.getInventory().getFreeSlot() != -1 || chestplate.isEmpty()) {
+                player.getInventory().add(chestplate);
+            }
             player.setItemSlot(EquipmentSlot.CHEST, elytra);
-            player.getInventory().add(chestplate);
         }
     }
 
     public static ItemStack findElytra(Player player) {
         for (ItemStack stack : player.getInventory().items) {
-            if (stack.getItem() == Items.ELYTRA) {
+            if (stack.is(Items.ELYTRA)) {
                 return stack;
             }
         }
         return null;
     }
 
+
     public static void swapChestToElytra(Player player) {
         ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
         ItemStack elytra = findElytra(player);
 
-        if (elytra != null && !elytra.isEmpty()) {
-            player.setItemSlot(EquipmentSlot.CHEST, elytra.copy());
-            player.getInventory().add(chest.copy());
+        if (elytra != null) {
+            player.getInventory().add(chest);
+            player.setItemSlot(EquipmentSlot.CHEST, elytra);
             player.getInventory().removeItem(elytra);
+        }
+    }
+    public static void swapToBestChestplate(Player player) {
+        ItemStack currentChest = player.getItemBySlot(EquipmentSlot.CHEST);
+        ItemStack bestChestplate = ArmorHelperUtil.getBestChestplate(player);
+
+        if (bestChestplate != null && !currentChest.is(bestChestplate.getItem())) {
+            if (player.getInventory().getFreeSlot() != -1 || currentChest.isEmpty()) {
+                player.getInventory().add(currentChest);
+            }
+            player.setItemSlot(EquipmentSlot.CHEST, bestChestplate);
         }
     }
 }

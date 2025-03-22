@@ -15,7 +15,7 @@ public class ArmorHelperUtil {
         int highestScore = -1;
 
         for (ItemStack stack : player.getInventory().items) {
-            if (isChestplate(stack)) {
+            if (isChestplate(stack) && !stack.is(Items.ELYTRA)) {
                 int score = calculateScore(stack);
                 if (score > highestScore) {
                     highestScore = score;
@@ -28,7 +28,7 @@ public class ArmorHelperUtil {
 
     private static boolean isChestplate(ItemStack stack) {
         return stack.getItem() instanceof ArmorItem &&
-                ((ArmorItem) stack.getItem()).getEquipmentSlot().equals(EquipmentSlot.CHEST);
+                ((ArmorItem) stack.getItem()).getEquipmentSlot() == EquipmentSlot.CHEST;
     }
 
     private static int calculateScore(ItemStack stack) {
@@ -43,5 +43,8 @@ public class ArmorHelperUtil {
 
         stack.getEnchantments().entrySet().forEach(e -> score.addAndGet(e.getIntValue()));
         return score.get();
+    }
+    public static ItemStack findElytra(Player player) {
+        return SwapUtil.findElytra(player);
     }
 }

@@ -1,7 +1,7 @@
 package com.eirmax.elytraswaperplus.mixin;
 
-import com.eirmax.elytraswaperplus.utils.ArmorHelperUtil;
 import com.eirmax.elytraswaperplus.utils.SwapUtil;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -18,18 +18,21 @@ public class StopFlying {
         Player player = (Player) (Object) this;
         ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
 
-        if (player.onGround() && chestItem.getItem().equals(Items.ELYTRA)) {
-            ItemStack bestChestplate = ArmorHelperUtil.getBestChestplate(player);
-            if (bestChestplate != null) {
-                player.setItemSlot(EquipmentSlot.CHEST, bestChestplate);
-                player.getInventory().add(chestItem);
+        if (!player.isCreative() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
+            if (player.onGround()) {
+                if (chestItem.is(Items.ELYTRA)) {
+                    SwapUtil.swapToBestChestplate(player);
+                }
+            } else if (!player.isInWater() && !player.isInLava() &&
+                    player.getDeltaMovement().y < 10 &&
+                    !player.isFallFlying()) {
+
+                if (!chestItem.is(Items.ELYTRA)) {
+                    SwapUtil.tryWearElytra(player);
+                }
             }
-        }
-        else if (player.isFallFlying() && !chestItem.getItem().equals(Items.ELYTRA)) {
-            ItemStack elytra = SwapUtil.findElytra(player);
-            if (elytra != null) {
-                player.setItemSlot(EquipmentSlot.CHEST, elytra);
-                player.getInventory().add(chestItem);
+            if (player.isFallFlying() && !chestItem.is(Items.ELYTRA)) {
+                SwapUtil.tryWearElytra(player);
             }
         }
     }
