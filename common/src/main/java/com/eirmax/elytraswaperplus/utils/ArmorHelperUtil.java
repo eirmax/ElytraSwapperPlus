@@ -34,9 +34,12 @@ public class ArmorHelperUtil {
     private static int calculateScore(ItemStack stack) {
         AtomicInteger score = new AtomicInteger();
 
-        if (stack.getItem() == Items.NETHERITE_CHESTPLATE) score.addAndGet(3);
-        else if (stack.getItem() == Items.DIAMOND_CHESTPLATE) score.addAndGet(2);
-        else if (stack.getItem() == Items.IRON_CHESTPLATE) score.addAndGet(1);
+        if (stack.getItem() == Items.NETHERITE_CHESTPLATE) score.addAndGet(6);
+        else if (stack.getItem() == Items.DIAMOND_CHESTPLATE) score.addAndGet(5);
+        else if (stack.getItem() == Items.IRON_CHESTPLATE) score.addAndGet(4);
+        else if (stack.getItem() == Items.CHAINMAIL_CHESTPLATE) score.addAndGet(3);
+        else if (stack.getItem() == Items.GOLDEN_CHESTPLATE) score.addAndGet(2);
+        else if (stack.getItem() == Items.LEATHER_CHESTPLATE) score.addAndGet(1);
 
         stack.getEnchantments().entrySet().forEach(e -> score.addAndGet(e.getIntValue()));
         return score.get();

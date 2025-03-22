@@ -18,11 +18,11 @@ public class SwapUtil {
 
     public static ItemStack findElytra(Player player) {
         for (ItemStack stack : player.getInventory().items) {
-            if (stack.is(Items.ELYTRA)) {
+            if (stack.getItem() == Items.ELYTRA) {
                 return stack;
             }
         }
-        return ItemStack.EMPTY;
+        return null;
     }
 
     public static void swapChestToElytra(Player player) {
