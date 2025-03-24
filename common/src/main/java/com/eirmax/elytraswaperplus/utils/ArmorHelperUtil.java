@@ -44,7 +44,4 @@ public class ArmorHelperUtil {
         stack.getEnchantments().entrySet().forEach(e -> score.addAndGet(e.getIntValue()));
         return score.get();
     }
-    public static ItemStack findElytra(Player player) {
-        return SwapUtil.findElytra(player);
-    }
 }

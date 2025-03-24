@@ -82,8 +82,7 @@ public class SwapUtil {
             player.setItemSlot(EquipmentSlot.CHEST, bestChestplate);
         }
     }
-
-
+    /* Un useless method
     public static void swapChestplateToSecondSlot(Player player) {
         ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
         ItemStack secondSlotItem = player.getInventory().getItem(1);
@@ -101,7 +100,7 @@ public class SwapUtil {
             }
         }
     }
-
+    */
     public static ItemStack findElytra(Player player) {
         for (ItemStack stack : player.getInventory().items) {
             if (stack.is(Items.ELYTRA)) {
