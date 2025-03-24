@@ -26,6 +26,6 @@ public class CommonNeoforgeEvent {
     }
 
     public static void handleKeyPressOnServer(final KeyPressHandler data, final IPayloadContext context) {
-        context.enqueueWork(() -> SwapUtil.swapChestToElytra(context.player()));
+        context.enqueueWork(() -> SwapUtil.swap(context.player()));
     }
 }

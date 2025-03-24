@@ -13,6 +13,8 @@ public final class ElytraSwaperPlusFabric implements ModInitializer {
         ElytraSwaperPlus.init();
 
         PayloadTypeRegistry.playC2S().register(KeyPressHandler.TYPE, KeyPressHandler.STREAM_CODEC);
-        ServerPlayNetworking.registerGlobalReceiver(KeyPressHandler.TYPE, (payload, context) -> SwapUtil.swapChestToElytra(context.player()));
+        ServerPlayNetworking.registerGlobalReceiver(KeyPressHandler.TYPE, (payload, context) -> SwapUtil.swap(context.player()));
+
+
     }
 }
