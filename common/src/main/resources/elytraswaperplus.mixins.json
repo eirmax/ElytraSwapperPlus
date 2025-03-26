@@ -4,9 +4,10 @@
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "client": [
-    "StopFlying"
+    "FlyingManager"
   ],
   "mixins": [
+    "FlyingManager"
   ],
   "injectors": {
     "defaultRequire": 1
