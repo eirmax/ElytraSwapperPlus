@@ -19,20 +19,20 @@ public class StopFlying {
         ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
 
         if (!player.isCreative() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
-            if (player.onGround()) {
-                if (chestItem.is(Items.ELYTRA)) {
-                    SwapUtil.swapToBestChestplate(player);
-                }
-            } else if (!player.isInWater() && !player.isInLava() &&
-                    player.getDeltaMovement().y < 10 &&
+            if (!player.isInWater() && !player.isInLava() &&
+                    player.getDeltaMovement().y < 2 &&
                     !player.isFallFlying()) {
 
                 if (!chestItem.is(Items.ELYTRA)) {
                     SwapUtil.tryWearElytra(player);
                 }
-            }
-            if (player.isFallFlying() && !chestItem.is(Items.ELYTRA)) {
-                SwapUtil.tryWearElytra(player);
+
+                if (player.isFallFlying() && !chestItem.is(Items.ELYTRA)) {
+                    SwapUtil.tryWearElytra(player);
+                }
+                if (player.getDeltaMovement().y < 2 && chestItem.is(Items.ELYTRA) && !player.isFallFlying()) {
+                    player.startFallFlying();
+                }
             }
         }
     }
