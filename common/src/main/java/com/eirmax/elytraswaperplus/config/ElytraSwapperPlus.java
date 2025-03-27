@@ -1,7 +1,6 @@
 package com.eirmax.elytraswaperplus.config;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
-import net.fabricmc.fabric.api.client.screen.v1.Screens;
+
 import net.minecraft.client.gui.screens.OptionsScreen;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;

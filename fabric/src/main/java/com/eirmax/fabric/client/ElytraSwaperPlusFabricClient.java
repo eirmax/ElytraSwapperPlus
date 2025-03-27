@@ -9,6 +9,6 @@ public final class ElytraSwaperPlusFabricClient implements ClientModInitializer 
     public void onInitializeClient() {
         KeyBindingRegistry.init();
         ClientFabricKeybindEvent.init();
-        ElytraSwaperPlusInit.initialize(new FabricPlatformHelper());
+        ElytraSwaperPlusInit.init(new FabricPlatformHelper());
     }
 }

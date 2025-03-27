@@ -1,7 +1,7 @@
 package com.eirmax.neoforge;
 
 import com.eirmax.elytraswaperplus.ElytraSwaperPlus;
-import com.eirmax.elytraswaperplus.gui.ElytraSwaperPlusGuiHelper;
+import com.eirmax.elytraswaperplus.init.ElytraSwaperPlusInit;
 import com.eirmax.neoforge.neoforgeplatformhelper.NeoForgePlatformHelper;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -10,8 +10,6 @@ import net.neoforged.fml.common.Mod;
 public final class ElytraSwaperPlusNeoForge {
     public ElytraSwaperPlusNeoForge(IEventBus bus) {
        ElytraSwaperPlus.init();
-        ElytraSwaperPlusGuiHelper.initialize(new NeoForgePlatformHelper());
-
-
+       ElytraSwaperPlusInit.init(new NeoForgePlatformHelper());
     }
 }

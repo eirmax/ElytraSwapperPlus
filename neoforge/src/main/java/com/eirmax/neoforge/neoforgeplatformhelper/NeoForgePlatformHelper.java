@@ -11,8 +11,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 @EventBusSubscriber(modid = "elytraswaperplus")
 public class NeoForgePlatformHelper implements PlatformHelper {
     @Override
-    public Screen createConfigScreen(Screen parent) {
-        return null;
+    public Screen createConfigScreen(Screen screen) {
+        return screen;
     }
 
     @Override

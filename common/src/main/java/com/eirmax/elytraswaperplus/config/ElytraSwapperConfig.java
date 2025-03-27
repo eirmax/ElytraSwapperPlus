@@ -40,9 +40,9 @@ public class ElytraSwapperConfig {
         }
     }
 
-    public static Screen createConfigScreen(Screen parent) {
+    public static Screen createConfigScreen(Screen screen) {
         ConfigBuilder builder = ConfigBuilder.create()
-                .setParentScreen(parent)
+                .setParentScreen(screen)
                 .setTitle(Component.translatable("title.elytraswaperplus.config"))
                 .setSavingRunnable(ElytraSwapperConfig::saveConfig);
 

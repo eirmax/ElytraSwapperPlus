@@ -11,7 +11,7 @@ import net.minecraft.network.chat.Component;
 public class FabricPlatformHelper implements PlatformHelper {
     @Override
     public Screen createConfigScreen(Screen parent) {
-        return null;
+        return parent;
     }
 
     @Override
