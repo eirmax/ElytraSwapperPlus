@@ -1,5 +1,7 @@
 package com.eirmax.fabric.fabricplatformhelper;
 
+import com.eirmax.elytraswaperplus.ElytraSwaperPlus;
+import com.eirmax.elytraswaperplus.config.ElytraSwapperConfig;
 import com.eirmax.elytraswaperplus.gui.PlatformHelper;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
@@ -11,7 +13,7 @@ import net.minecraft.network.chat.Component;
 public class FabricPlatformHelper implements PlatformHelper {
     @Override
     public Screen createConfigScreen(Screen screen) {
-        return screen;
+        return ElytraSwapperConfig.createConfigScreen(screen);
     }
 
     @Override
