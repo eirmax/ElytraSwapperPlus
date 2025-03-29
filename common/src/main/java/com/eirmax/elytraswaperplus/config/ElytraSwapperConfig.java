@@ -17,7 +17,9 @@ import java.nio.file.Paths;
 
 public class ElytraSwapperConfig {
     private static final Path CONFIG_FILE = Paths.get("config/elytraswaperplus.json");
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson GSON = new GsonBuilder()
+            .setPrettyPrinting()
+            .create();
 
     public static class ConfigData {
         public double heightFalling = 3.0;

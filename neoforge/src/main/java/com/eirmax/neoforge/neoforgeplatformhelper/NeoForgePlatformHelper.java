@@ -1,5 +1,6 @@
 package com.eirmax.neoforge.neoforgeplatformhelper;
 
+import com.eirmax.elytraswaperplus.ElytraSwaperPlus;
 import com.eirmax.elytraswaperplus.config.ElytraSwapperConfig;
 import com.eirmax.elytraswaperplus.gui.PlatformHelper;
 import net.minecraft.client.Minecraft;
@@ -11,7 +12,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 
-@EventBusSubscriber(modid = "elytraswaperplus", bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ElytraSwaperPlus.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class NeoForgePlatformHelper implements PlatformHelper {
 
     @Override
