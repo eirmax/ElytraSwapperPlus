@@ -22,7 +22,7 @@ public class FlyingManager {
 
         if (!player.isCreative() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
             if (!player.isInWater() && !player.isInLava() &&
-                    player.getDeltaMovement().y < ElytraSwapperConfig.HEIGHT_FALLING &&
+                    player.getDeltaMovement().y < ElytraSwapperConfig.CONFIG.heightFalling &&
                     !player.isFallFlying()) {
 
                 if (!chestItem.is(Items.ELYTRA)) {
@@ -33,7 +33,7 @@ public class FlyingManager {
                     SwapUtil.tryWearElytra(player);
                 }
 
-                if (player.getDeltaMovement().y < ElytraSwapperConfig.HEIGHT_FALLING && chestItem.is(Items.ELYTRA) && !player.isFallFlying()) {
+                if (player.getDeltaMovement().y < ElytraSwapperConfig.CONFIG.heightFalling && chestItem.is(Items.ELYTRA) && !player.isFallFlying()) {
                     player.startFallFlying();
                 }
             }

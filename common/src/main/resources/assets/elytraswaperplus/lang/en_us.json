@@ -1,5 +1,9 @@
 {
   "key.elytraswaperplus.swap": "ElytraSwap",
-  "category.elytraswaperplus": "ElytraSwapCategory"
+  "category.elytraswaperplus": "ElytraSwapCategory",
+  "option.elytraswaperplus.height_falling": "Activation Height",
+  "tooltip.elytraswaperplus.height_falling": "Minimum falling height to trigger auto-swap",
+  "option.elytraswaperplus.enable_mixin": "Auto Swap",
+  "tooltip.elytraswaperplus.enable_mixin": "Turn on auto swapping mixin dependency"
 
 }
