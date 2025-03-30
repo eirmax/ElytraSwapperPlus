@@ -8,16 +8,36 @@ import net.minecraft.world.item.Items;
 
 public class SwapUtil {
     public static void tryWearElytra(Player player) {
-        ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
-        ItemStack elytra = findElytra(player);
-
-        if (elytra != null && !chestplate.is(Items.ELYTRA)) {
-            if (player.getInventory().getFreeSlot() != -1 || chestplate.isEmpty()) {
-                player.getInventory().add(chestplate);
+        ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
+        if (!chestItem.is(Items.ELYTRA)) {
+            if (!chestItem.isEmpty()) {
+                player.getInventory().add(chestItem);
             }
-            player.setItemSlot(EquipmentSlot.CHEST, elytra);
+            ItemStack elytra = findElytra(player);
+
+            if (!elytra.isEmpty()) {
+                player.setItemSlot(EquipmentSlot.CHEST, elytra);
+                player.getInventory().removeItem(elytra);
+            }
         }
     }
+
+    public static void elytraRemoveFirstElytra(Player player) {
+        ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
+        if (chestItem.is(Items.ELYTRA)) {
+            player.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
+        } else {
+            for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+                ItemStack stack = player.getInventory().getItem(i);
+                if (stack.is(Items.ELYTRA)) {
+                    player.getInventory().removeItem(i, 1);
+                    break;
+                }
+            }
+        }
+    }
+
+
 
     public static void swap(Player player) {
         ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
@@ -104,11 +124,12 @@ public class SwapUtil {
     */
 
     public static ItemStack findElytra(Player player) {
-        for (ItemStack stack : player.getInventory().items) {
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = player.getInventory().getItem(i);
             if (stack.is(Items.ELYTRA)) {
                 return stack;
             }
         }
-        return null;
+        return ItemStack.EMPTY;
     }
 }
