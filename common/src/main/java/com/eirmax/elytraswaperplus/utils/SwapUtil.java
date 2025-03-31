@@ -5,8 +5,19 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-
 public class SwapUtil {
+
+
+    public static boolean auto_equip = false;
+    public static boolean value;
+    public static void toggleAutoEquip() {
+        auto_equip = !auto_equip;
+    }
+
+    public static void setAutoEquip(Player player) {
+        auto_equip = value;
+    }
+
     public static void tryWearElytra(Player player) {
         ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
         if (!chestItem.is(Items.ELYTRA)) {
@@ -19,6 +30,7 @@ public class SwapUtil {
                 player.setItemSlot(EquipmentSlot.CHEST, elytra);
                 player.getInventory().removeItem(elytra);
             }
+            player.setItemSlot(EquipmentSlot.CHEST, elytra);
         }
     }
 
@@ -36,7 +48,6 @@ public class SwapUtil {
             }
         }
     }
-
 
 
     public static void swap(Player player) {

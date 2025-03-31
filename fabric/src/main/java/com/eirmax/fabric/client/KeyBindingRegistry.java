@@ -7,12 +7,12 @@ import org.lwjgl.glfw.GLFW;
 public class KeyBindingRegistry {
     public static void init() {
         registerKeyBind("key.elytraswaperplus.swap", GLFW.GLFW_KEY_R, "category.elytraswaperplus");
+        registerKeyBind("key.elytraswaperplus.auto_equip", GLFW.GLFW_KEY_B, "category.elytraswaperplus");
     }
 
-    public static KeyMapping registerKeyBind(String translationKeyName, int defaultKeyId, String category) {
-        KeyMapping bind = new KeyMapping(translationKeyName, defaultKeyId, category);
-        KeyBindingHelper.registerKeyBinding(bind);
-        ClientFabricKeybindEvent.keyMappings.add(bind);
-        return bind;
+    public static void registerKeyBind(String translationKeyName, int defaultKeyId, String category) {
+        KeyMapping keyBinding = new KeyMapping(translationKeyName, defaultKeyId, category);
+        KeyBindingHelper.registerKeyBinding(keyBinding);
+        ClientFabricKeybindEvent.keyMappings.add(keyBinding);
     }
 }
