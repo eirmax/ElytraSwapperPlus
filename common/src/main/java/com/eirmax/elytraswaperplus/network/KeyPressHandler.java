@@ -9,18 +9,18 @@ import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
-public record KeyPressHandler(Integer keyId) implements CustomPacketPayload {
+public record KeyPressHandler(String component) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<KeyPressHandler> TYPE = new CustomPacketPayload.Type<>(NetworkManager.KEYBIND_PACKET_ID);
 
     public static final StreamCodec<RegistryFriendlyByteBuf, KeyPressHandler> STREAM_CODEC = new StreamCodec<>() {
         @Override
         public @NotNull KeyPressHandler decode(RegistryFriendlyByteBuf buf) {
-            return new KeyPressHandler(buf.readInt());
+            return new KeyPressHandler(buf.readUtf());
         }
 
         @Override
         public void encode(RegistryFriendlyByteBuf buf, KeyPressHandler packet) {
-            buf.writeInt(packet.keyId);
+            buf.writeUtf(packet.component);
         }
     };
 
@@ -31,9 +31,9 @@ public record KeyPressHandler(Integer keyId) implements CustomPacketPayload {
 
     public static void handle(KeyPressHandler payload, ServerPlayer player) {
         if (player != null) {
-            if (payload.keyId == GLFW.GLFW_KEY_R) {
+            if (payload.component.equals("key.elytraswapplus.swap")) {
                 SwapUtil.swap(player);
-            } else if (payload.keyId == GLFW.GLFW_KEY_B) {
+            } else if (payload.component.equals("key.elytraswapplus.auto_equip")) {
                 SwapUtil.toggleAutoEquip();
                 SwapUtil.setAutoEquip(player);
             }

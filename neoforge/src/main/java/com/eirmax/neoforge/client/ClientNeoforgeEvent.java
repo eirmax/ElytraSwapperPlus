@@ -16,7 +16,7 @@ public class ClientNeoforgeEvent {
     public static void onClientTick(ClientTickEvent.Post event) {
         for (Lazy<KeyMapping> key : ClientNeoforgeKeybindEvent.keyMappings) {
             while (key.get().consumeClick()) {
-                PacketDistributor.sendToServer(new KeyPressHandler(key.get().key.getValue()));
+                PacketDistributor.sendToServer(new KeyPressHandler(key.get().getName()));
             }
         }
     }

@@ -15,7 +15,7 @@ public class ClientFabricKeybindEvent {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             for (KeyMapping key : keyMappings) {
                 while (client.player != null && key.consumeClick()) {
-                    ClientPlayNetworking.send(new KeyPressHandler(key.key.getValue()));
+                    ClientPlayNetworking.send(new KeyPressHandler(key.getName()));
                 }
             }
         });

@@ -3,6 +3,7 @@ package com.eirmax.neoforge;
 import com.eirmax.elytraswaperplus.ElytraSwaperPlus;
 import com.eirmax.elytraswaperplus.network.KeyPressHandler;
 import com.eirmax.elytraswaperplus.utils.SwapUtil;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -29,15 +30,7 @@ public class CommonNeoforgeEvent {
 
     public static void handleKeyPressOnServer(final KeyPressHandler data, final IPayloadContext context) {
         context.enqueueWork(() -> {
-            Player player = context.player();
-            if (player != null) {
-                if (data.keyId() == GLFW.GLFW_KEY_R) {
-                    SwapUtil.swap(player);
-                } else if (data.keyId() == GLFW.GLFW_KEY_B) {
-                    SwapUtil.toggleAutoEquip();
-                    SwapUtil.setAutoEquip(player);
-                }
-            }
+            if (context.player() instanceof ServerPlayer serverPlayer) KeyPressHandler.handle(data, serverPlayer);
         });
     }
 }
