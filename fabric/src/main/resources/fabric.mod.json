@@ -3,15 +3,15 @@
   "id": "elytraswaperplus",
   "version": "${version}",
   "name": "ElytraSwaperPlus",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "A next generation mod that gives you the ability to quickly change your chestplate and elytra whenever you need it.",
   "authors": [
-    "Me!"
+    "eirmax,stoxoef"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "sources": "https://github.com/eirmax/elytraswaperplus"
   },
-  "license": "CC0-1.0",
+  "license": "MIT",
   "icon": "assets/elytraswaperplus/icon.png",
   "environment": "*",
   "entrypoints": {

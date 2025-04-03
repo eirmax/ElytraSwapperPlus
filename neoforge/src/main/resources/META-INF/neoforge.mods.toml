@@ -1,15 +1,15 @@
 modLoader = "javafml"
 loaderVersion = "[4,)"
-#issueTrackerURL = ""
-license = "Insert License Here"
+issueTrackerURL = "https://github.com/eirmax/elytraswaperplus"
+license = "MIT"
 
 [[mods]]
 modId = "elytraswaperplus"
 version = "${version}"
 displayName = "ElytraSwaperPlus"
-authors = "Me!"
+authors = "eirmax,stoxoef"
 description = '''
-This is an example description! Tell everyone what your mod is about!
+A next generation mod that gives you the ability to quickly change your chestplate and elytra whenever you need it.
 '''
 #logoFile = ""
 
