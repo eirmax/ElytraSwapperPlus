@@ -14,15 +14,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Player.class)
 public class FlyingHelper {
 
-
     @Inject(method = "tick", at = @At("TAIL"))
     public void onTickMovementEnd(CallbackInfo ci) {
-        if(!SwapUtil.auto_equip){
+        if (!SwapUtil.auto_equip) {
             return;
         }
 
         Player player = (Player) (Object) this;
         ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
+
         if (!player.hasEffect(MobEffects.SLOW_FALLING)) {
             if (player.onGround()) {
                 if (player.isFallFlying()) {

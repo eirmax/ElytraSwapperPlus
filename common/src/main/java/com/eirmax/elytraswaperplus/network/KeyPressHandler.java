@@ -1,6 +1,5 @@
 package com.eirmax.elytraswaperplus.network;
 
-import com.eirmax.elytraswaperplus.network.NetworkManager;
 import com.eirmax.elytraswaperplus.utils.SwapUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -34,7 +33,7 @@ public record KeyPressHandler(String component) implements CustomPacketPayload {
                 SwapUtil.swap(player);
             } else if (payload.component.equals("key.elytraswapplus.auto_equip")) {
                 SwapUtil.toggleAutoEquip();
-                SwapUtil.setAutoEquip(player);
+                SwapUtil.setAutoEquip(SwapUtil.auto_equip);
             }
         }
     }
