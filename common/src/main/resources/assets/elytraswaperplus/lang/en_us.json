@@ -1,5 +1,7 @@
 {
   "key.elytraswaperplus.swap": "ElytraSwap",
-  "category.elytraswaperplus": "ElytraSwapCategory"
-
+  "key.elytraswaperplus.auto_equip": "Auto Equip",
+  "category.elytraswaperplus": "ElytraSwapCategory",
+  "msg.elytraswapplus.auto_equip.enabled": "Auto Equip: Enabled",
+  "msg.elytraswapplus.auto_equip.disabled": "Auto Equip: Disabled"
 }
