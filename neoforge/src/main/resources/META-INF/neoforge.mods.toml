@@ -7,7 +7,7 @@ license = "MIT"
 modId = "elytraswaperplus"
 version = "${version}"
 displayName = "ElytraSwaperPlus"
-authors = "eirmax,stoxoef"
+authors = "eirmax,st0x0ef"
 description = '''
 A next generation mod that gives you the ability to quickly change your chestplate and elytra whenever you need it.
 '''
