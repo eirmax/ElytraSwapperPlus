@@ -2,6 +2,6 @@
   "key.elytraswaperplus.swap": "ElytraSwap",
   "key.elytraswaperplus.auto_equip": "Auto Equip",
   "category.elytraswaperplus": "ElytraSwapCategory",
-  "msg.elytraswapplus.auto_equip.enabled": "Auto Equip: Enabled",
-  "msg.elytraswapplus.auto_equip.disabled": "Auto Equip: Disabled"
+  "msg.elytraswapplus.auto_equip.enabled": "Auto Equip: enabled",
+  "msg.elytraswapplus.auto_equip.disabled": "Auto Equip: disabled"
 }
