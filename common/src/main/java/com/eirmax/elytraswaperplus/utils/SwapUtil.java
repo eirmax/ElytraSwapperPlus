@@ -7,14 +7,13 @@ import net.minecraft.world.item.Items;
 
 public class SwapUtil {
 
-
     public static boolean auto_equip = false;
-    public static boolean value;
+
     public static void toggleAutoEquip() {
         auto_equip = !auto_equip;
     }
 
-    public static void setAutoEquip(Player player) {
+    public static void setAutoEquip(boolean value) {
         auto_equip = value;
     }
 
