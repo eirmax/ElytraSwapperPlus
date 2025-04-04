@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "elytraswaperplus",
+  "id": "elytraswapperplus",
   "version": "${version}",
-  "name": "ElytraSwaperPlus",
+  "name": "ElytraSwapperPlus",
   "description": "A next generation mod that gives you the ability to quickly change your chestplate and elytra whenever you need it.",
   "authors": [
     "eirmax,st0x0ef"
@@ -12,18 +12,18 @@
     "sources": "https://github.com/eirmax/elytraswaperplus"
   },
   "license": "MIT",
-  "icon": "assets/elytraswaperplus/icon.png",
+  "icon": "assets/elytraswapperplus/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
       "com.eirmax.fabric.ElytraSwaperPlusFabric"
     ],
     "client": [
-      "com.eirmax.fabric.client.ElytraSwaperPlusFabricClient"
+      "com.eirmax.fabric.client.ElytraSwapperPlusFabricClient"
     ]
   },
   "mixins": [
-    "elytraswaperplus.mixins.json"
+    "elytraswapperplus.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.16.10",

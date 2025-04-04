@@ -7,7 +7,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'elytraswaperplus'
+rootProject.name = 'elytraswapperplus'
 
 include 'common'
 include 'fabric'

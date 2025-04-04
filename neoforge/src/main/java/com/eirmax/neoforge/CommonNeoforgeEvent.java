@@ -1,6 +1,6 @@
 package com.eirmax.neoforge;
 
-import com.eirmax.elytraswaperplus.ElytraSwaperPlus;
+import com.eirmax.elytraswaperplus.ElytraSwapperPlus;
 import com.eirmax.elytraswaperplus.network.KeyPressHandler;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -10,7 +10,7 @@ import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
-@EventBusSubscriber(modid = ElytraSwaperPlus.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ElytraSwapperPlus.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class CommonNeoforgeEvent {
     @SubscribeEvent
     public static void register(final RegisterPayloadHandlersEvent event) {

@@ -1,26 +1,26 @@
 modLoader = "javafml"
 loaderVersion = "[4,)"
-issueTrackerURL = "https://github.com/eirmax/elytraswaperplus"
+issueTrackerURL = "https://github.com/eirmax/elytraswapperplus"
 license = "MIT"
 
 [[mods]]
-modId = "elytraswaperplus"
+modId = "elytraswapperplus"
 version = "${version}"
-displayName = "ElytraSwaperPlus"
+displayName = "elytraswapperplus"
 authors = "eirmax,st0x0ef"
 description = '''
 A next generation mod that gives you the ability to quickly change your chestplate and elytra whenever you need it.
 '''
-#logoFile = ""
+logoFile = "assets/elytraswapperplus/icon.png"
 
-[[dependencies.elytraswaperplus]]
+[[dependencies.elytraswapperplus]]
 modId = "neoforge"
 type = "required"
 versionRange = "[21.1,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.elytraswaperplus]]
+[[dependencies.elytraswapperplus]]
 modId = "minecraft"
 type = "required"
 versionRange = "[1.21.1,)"
@@ -28,7 +28,7 @@ ordering = "NONE"
 side = "BOTH"
 
 [[mixins]]
-config = "elytraswaperplus.mixins.json"
+config = "elytraswapperplus.mixins.json"
 
 [[accessTransformers]]
 file="META-INF/accesstransformer.cfg"

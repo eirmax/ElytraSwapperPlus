@@ -7,7 +7,7 @@ import org.lwjgl.glfw.GLFW;
 public class KeyBindingRegistry {
     public static void init() {
         registerKeyBind("key.elytraswapplus.swap", GLFW.GLFW_KEY_R, "category.elytraswapplus");
-        registerKeyBind("key.elytraswapplus.auto_equip", GLFW.GLFW_KEY_B, "category.elytraswapplus");
+        registerKeyBind("key.elytraswapplus.auto_swap", GLFW.GLFW_KEY_B, "category.elytraswapplus");
     }
 
     public static KeyMapping registerKeyBind(String translationKeyName, int defaultKeyId, String category) {

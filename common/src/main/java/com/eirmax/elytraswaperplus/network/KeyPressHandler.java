@@ -32,13 +32,13 @@ public record KeyPressHandler(String component) implements CustomPacketPayload {
         if (player != null) {
             if (payload.component.equals("key.elytraswapplus.swap")) {
                 SwapUtil.swap(player);
-            } else if (payload.component.equals("key.elytraswapplus.auto_equip")) {
+            } else if (payload.component.equals("key.elytraswapplus.auto_swap")) {
                 SwapUtil.toggleAutoEquip();
                 SwapUtil.setAutoEquip(SwapUtil.auto_equip);
 
                 //Send message to player
                 Component message = Component.translatable(
-                        "msg.elytraswapplus.auto_equip." + (SwapUtil.auto_equip ? "enabled" : "disabled")
+                        "msg.elytraswapplus.auto_swap." + (SwapUtil.auto_equip ? "enabled" : "disabled")
                 );
                 player.sendSystemMessage(message);
             }
