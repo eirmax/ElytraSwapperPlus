@@ -13,8 +13,8 @@ public class ArmorHelperUtil {
     public static ItemStack getBestChestplate(Player player) {
         ItemStack best = null;
         int highestScore = -1;
-
-        for (ItemStack stack : player.getInventory().items) {
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = player.getInventory().getItem(i);
             if (isChestplate(stack) && !stack.is(Items.ELYTRA)) {
                 int score = calculateScore(stack);
                 if (score > highestScore) {
