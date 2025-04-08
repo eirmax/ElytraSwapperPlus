@@ -1,7 +1,0 @@
-{
-  "key.elytraswapplus.swap": "ElytraSwap",
-  "key.elytraswapplus.auto_swap": "AutoSwap",
-  "category.elytraswapplus": "ElytraSwapperCategory",
-  "msg.elytraswapplus.auto_swap.enabled": "AutoSwap: enabled",
-  "msg.elytraswapplus.auto_swap.disabled": "AutoSwap: disabled"
-}
