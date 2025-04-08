@@ -15,7 +15,7 @@ public class ArmorHelperUtil {
         int highestScore = -1;
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stack = player.getInventory().getItem(i);
-            if (isChestplate(stack) && !stack.is(Items.ELYTRA)) {
+            if (isChestplate(stack,player) && !stack.is(Items.ELYTRA)) {
                 int score = calculateScore(stack);
                 if (score > highestScore) {
                     highestScore = score;
@@ -26,9 +26,9 @@ public class ArmorHelperUtil {
         return best;
     }
 
-    private static boolean isChestplate(ItemStack stack) {
+    private static boolean isChestplate(ItemStack stack, Player player) {
         return stack.getItem() instanceof ArmorItem &&
-                ((ArmorItem) stack.getItem()).getEquipmentSlot() == EquipmentSlot.CHEST;
+                player.getEquipmentSlotForItem(stack) == EquipmentSlot.CHEST;
     }
 
     private static int calculateScore(ItemStack stack) {
