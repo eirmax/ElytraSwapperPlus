@@ -2,6 +2,7 @@ plugins {
     id 'dev.architectury.loom' version '1.10-SNAPSHOT' apply false
     id 'architectury-plugin' version '3.4-SNAPSHOT'
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
+    id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
 
 architectury {
@@ -17,11 +18,13 @@ subprojects {
     apply plugin: 'dev.architectury.loom'
     apply plugin: 'architectury-plugin'
     apply plugin: 'maven-publish'
+    apply plugin: 'me.modmuss50.mod-publish-plugin'
 
     base {
-        // Set up a suffixed format for the mod jar names, e.g. `example-fabric`.
-        archivesName = "$rootProject.archives_name-$project.name"
+        archivesName = "${rootProject.archives_name}-${rootProject.minecraft_version}-${project.name}"
     }
+
+    boolean isCommon = modLoader == "common"
 
     repositories {
         maven { url "https://maven.parchmentmc.org" }
@@ -56,21 +59,47 @@ subprojects {
         it.options.release = 21
     }
 
-    // Configure Maven publishing.
     publishing {
         publications {
             mavenJava(MavenPublication) {
-                artifactId = base.archivesName.get()
+                groupId "com.eirmax.elytraswapperplus"
+                artifactId "elytraswapperplus-$modLoader-" + minecraft_version
+                version mod_version
                 from components.java
+                pom {
+                    name = "Elytra Swapper Plus " + modLoader.capitalize()
+                    url = "https://github.com/eirmax/elytraswaperplus"
+                }
             }
         }
 
-        // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
         repositories {
-            // Add repositories to publish to here.
-            // Notice: This block does NOT have the same function as the block in the top level.
-            // The repositories here will be used for publishing your artifact, not for
-            // retrieving dependencies.
+            maven {
+                url = "https://maven.exodusstudio.org/releases/"
+                credentials {
+                    username = System.getenv("EXODUS_MAVEN_USERNAME") // DO NOT CHANGE
+                    password = System.getenv("EXODUS_MAVEN_KEY") // DO NOT CHANGE
+                }
+            }
+        }
+    }
+
+    if (!isCommon) {
+        publishMods {
+            file = file("../${modLoader.capitalize()}/build/libs/elytraswapperplus-${minecraft_version}-${modLoader}-${mod_version}.jar")
+            changelog = file("../changelog.md").getText('UTF-8')
+            type = STABLE
+            modLoaders.add(modLoader)
+            displayName = "[${modLoader.capitalize()} ${minecraft_version}] Elytra Swapper Plus ${mod_version}"
+
+            curseforge {
+                projectId = "1236104"
+                projectSlug = "elytraswaperplus" // Required for discord webhook
+                accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
+                minecraftVersions.add("${minecraft_version}")
+                minecraftVersions.add("${supported_minecraft_version}")
+                javaVersions.add(JavaVersion.VERSION_21)
+            }
         }
     }
 }
