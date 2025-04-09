@@ -3,7 +3,7 @@ package com.eirmax.elytraswapperplus.utils;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
@@ -27,10 +27,9 @@ public class ArmorHelperUtil {
     }
 
     private static boolean isChestplate(ItemStack stack, Player player) {
-        return stack.getItem() instanceof ArmorItem &&
-               player.getEquipmentSlotForItem(stack) == EquipmentSlot.CHEST;
+        return stack.getItem() instanceof Item &&
+                player.getEquipmentSlotForItem(stack) == EquipmentSlot.CHEST;
     }
-
     private static int calculateScore(ItemStack stack) {
         AtomicInteger score = new AtomicInteger();
 
