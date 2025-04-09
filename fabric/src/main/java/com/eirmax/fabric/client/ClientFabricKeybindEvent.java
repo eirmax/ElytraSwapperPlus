@@ -1,6 +1,6 @@
 package com.eirmax.fabric.client;
 
-import com.eirmax.elytraswaperplus.network.KeyPressHandler;
+import com.eirmax.elytraswapperplus.network.KeyPressHandler;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.KeyMapping;

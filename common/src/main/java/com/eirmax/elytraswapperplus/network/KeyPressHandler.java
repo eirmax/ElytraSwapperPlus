@@ -1,6 +1,6 @@
-package com.eirmax.elytraswaperplus.network;
+package com.eirmax.elytraswapperplus.network;
 
-import com.eirmax.elytraswaperplus.utils.SwapUtil;
+import com.eirmax.elytraswapperplus.utils.SwapUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;

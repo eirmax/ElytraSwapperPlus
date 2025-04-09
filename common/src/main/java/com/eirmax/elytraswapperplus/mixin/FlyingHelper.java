@@ -1,6 +1,6 @@
-package com.eirmax.elytraswaperplus.mixin;
+package com.eirmax.elytraswapperplus.mixin;
 
-import com.eirmax.elytraswaperplus.utils.SwapUtil;
+import com.eirmax.elytraswapperplus.utils.SwapUtil;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;

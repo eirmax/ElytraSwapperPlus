@@ -1,6 +1,6 @@
-package com.eirmax.elytraswaperplus.network;
+package com.eirmax.elytraswapperplus.network;
 
-import com.eirmax.elytraswaperplus.ElytraSwapperPlus;
+import com.eirmax.elytraswapperplus.ElytraSwapperPlus;
 import net.minecraft.resources.ResourceLocation;
 
 public class NetworkManager {

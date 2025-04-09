@@ -1,4 +1,4 @@
-package com.eirmax.elytraswaperplus.utils;
+package com.eirmax.elytraswapperplus.utils;
 
 
 import net.minecraft.world.entity.EquipmentSlot;
