@@ -1,13 +1,13 @@
 package com.eirmax.fabric;
 
 
-import com.eirmax.elytraswaperplus.ElytraSwapperPlus;
-import com.eirmax.elytraswaperplus.network.KeyPressHandler;
+import com.eirmax.elytraswapperplus.ElytraSwapperPlus;
+import com.eirmax.elytraswapperplus.network.KeyPressHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 
-public final class ElytraSwaperPlusFabric implements ModInitializer {
+public final class ElytraSwapperPlusFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         ElytraSwapperPlus.init();

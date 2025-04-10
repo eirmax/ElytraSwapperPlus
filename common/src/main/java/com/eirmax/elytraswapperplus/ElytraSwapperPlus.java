@@ -1,4 +1,4 @@
-package com.eirmax.elytraswaperplus;
+package com.eirmax.elytraswapperplus;
 
 
 public final class ElytraSwapperPlus {

@@ -1,7 +1,7 @@
 package com.eirmax.neoforge;
 
-import com.eirmax.elytraswaperplus.ElytraSwapperPlus;
-import com.eirmax.elytraswaperplus.network.KeyPressHandler;
+import com.eirmax.elytraswapperplus.ElytraSwapperPlus;
+import com.eirmax.elytraswapperplus.network.KeyPressHandler;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;

@@ -16,7 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.eirmax.fabric.ElytraSwaperPlusFabric"
+      "com.eirmax.fabric.ElytraSwapperPlusFabric"
     ],
     "client": [
       "com.eirmax.fabric.client.ElytraSwapperPlusFabricClient"

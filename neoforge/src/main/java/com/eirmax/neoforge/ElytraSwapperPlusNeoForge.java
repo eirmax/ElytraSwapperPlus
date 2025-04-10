@@ -1,6 +1,6 @@
 package com.eirmax.neoforge;
 
-import com.eirmax.elytraswaperplus.ElytraSwapperPlus;
+import com.eirmax.elytraswapperplus.ElytraSwapperPlus;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 
