@@ -3,7 +3,6 @@ package com.eirmax.elytraswaperplus.utils;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
@@ -15,7 +14,7 @@ public class ArmorHelperUtil {
         int highestScore = -1;
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stack = player.getInventory().getItem(i);
-            if (isChestplate(stack, player) && !stack.is(Items.ELYTRA)) {
+            if (isChestplate(stack,player) && !stack.is(Items.ELYTRA)) {
                 int score = calculateScore(stack);
                 if (score > highestScore) {
                     highestScore = score;
@@ -27,9 +26,9 @@ public class ArmorHelperUtil {
     }
 
     private static boolean isChestplate(ItemStack stack, Player player) {
-        return stack.getItem() instanceof Item &&
-                player.getEquipmentSlotForItem(stack) == EquipmentSlot.CHEST;
+        return player.getEquipmentSlotForItem(stack) == EquipmentSlot.CHEST;
     }
+
     private static int calculateScore(ItemStack stack) {
         AtomicInteger score = new AtomicInteger();
 
