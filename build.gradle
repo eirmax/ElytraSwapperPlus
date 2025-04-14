@@ -23,8 +23,7 @@ subprojects {
     base {
         archivesName = "${rootProject.archives_name}-${rootProject.minecraft_version}-${project.name}"
     }
-
-    boolean isCommon = modLoader == "common"
+    def modLoader = project.name
 
     repositories {
         maven { url "https://maven.parchmentmc.org" }
@@ -84,7 +83,7 @@ subprojects {
         }
     }
 
-    if (!isCommon) {
+    if (modLoader != "common") {
         publishMods {
             file = file("../${modLoader.capitalize()}/build/libs/elytraswapperplus-${minecraft_version}-${modLoader}-${mod_version}.jar")
             changelog = file("../changelog.md").getText('UTF-8')
@@ -97,7 +96,7 @@ subprojects {
                 projectSlug = "elytraswaperplus" // Required for discord webhook
                 accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
                 minecraftVersions.add("${minecraft_version}")
-                minecraftVersions.add("${supported_minecraft_version}")
+               // minecraftVersions.add("${supported_minecraft_version}")
                 javaVersions.add(JavaVersion.VERSION_21)
             }
         }
