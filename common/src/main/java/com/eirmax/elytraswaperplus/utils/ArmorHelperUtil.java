@@ -1,6 +1,4 @@
 package com.eirmax.elytraswaperplus.utils;
-
-
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -29,7 +27,6 @@ public class ArmorHelperUtil {
         }
         return best;
     }
-
     private static boolean isChestplate(ItemStack stack, Player player) {
         return player.getEquipmentSlotForItem(stack) == EquipmentSlot.CHEST;
     }
@@ -44,15 +41,15 @@ public class ArmorHelperUtil {
         else if (stack.getItem() == Items.GOLDEN_CHESTPLATE) score.addAndGet(2);
         else if (stack.getItem() == Items.LEATHER_CHESTPLATE) score.addAndGet(1);
 
-        if (stack.isEnchanted()) score.addAndGet(2);
+        if (stack.isEnchanted()) score.addAndGet(1);
         Map<ResourceKey<Enchantment>, Integer> enchantmentPoints = new HashMap<>();
-        enchantmentPoints.put(Enchantments.PROTECTION, 9);
-        enchantmentPoints.put(Enchantments.UNBREAKING, 7);
-        enchantmentPoints.put(Enchantments.MENDING, 8);
-        enchantmentPoints.put(Enchantments.PROJECTILE_PROTECTION, 4);
-        enchantmentPoints.put(Enchantments.BLAST_PROTECTION, 3);
-        enchantmentPoints.put(Enchantments.FIRE_PROTECTION, 5);
-        enchantmentPoints.put(Enchantments.THORNS, 6);
+        enchantmentPoints.put(Enchantments.PROTECTION, 7);
+        enchantmentPoints.put(Enchantments.UNBREAKING, 6);
+        enchantmentPoints.put(Enchantments.MENDING, 5);
+        enchantmentPoints.put(Enchantments.PROJECTILE_PROTECTION, 2);
+        enchantmentPoints.put(Enchantments.BLAST_PROTECTION, 1);
+        enchantmentPoints.put(Enchantments.FIRE_PROTECTION, 3);
+        enchantmentPoints.put(Enchantments.THORNS, 4);
         stack.getEnchantments().entrySet().forEach(e -> {
             Enchantment enchantment = e.getKey().value();
             int level = e.getValue();
