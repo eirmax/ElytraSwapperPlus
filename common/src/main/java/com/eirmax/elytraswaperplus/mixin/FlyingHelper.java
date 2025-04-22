@@ -23,7 +23,7 @@ public class FlyingHelper {
         Player player = (Player) (Object) this;
         ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
 
-        if (!player.hasEffect(MobEffects.SLOW_FALLING)) {
+        if (!player.hasEffect(MobEffects.SLOW_FALLING) && !player.isInPowderSnow) {
             if (player.onGround()) {
                 if (player.isFallFlying()) {
                     player.stopFallFlying();
