@@ -16,6 +16,13 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric/elytraswaperplus.fabric.test.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric/elytraswaperplus.fabric.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/neoforge/elytraswaperplus.neoforge.main.iml" filepath="$PROJECT_DIR$/.idea/modules/neoforge/elytraswaperplus.neoforge.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/neoforge/elytraswaperplus.neoforge.test.iml" filepath="$PROJECT_DIR$/.idea/modules/neoforge/elytraswaperplus.neoforge.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/elytraswapperplus.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/elytraswapperplus.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/elytraswapperplus.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/elytraswapperplus.common.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/elytraswapperplus.common.test.iml" filepath="$PROJECT_DIR$/.idea/modules/common/elytraswapperplus.common.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric/elytraswapperplus.fabric.main.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric/elytraswapperplus.fabric.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric/elytraswapperplus.fabric.test.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric/elytraswapperplus.fabric.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/neoforge/elytraswapperplus.neoforge.main.iml" filepath="$PROJECT_DIR$/.idea/modules/neoforge/elytraswapperplus.neoforge.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/neoforge/elytraswapperplus.neoforge.test.iml" filepath="$PROJECT_DIR$/.idea/modules/neoforge/elytraswapperplus.neoforge.test.iml" />
     </modules>
   </component>
 </project>
