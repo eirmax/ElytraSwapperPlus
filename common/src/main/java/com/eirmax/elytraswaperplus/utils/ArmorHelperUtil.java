@@ -46,13 +46,13 @@ public class ArmorHelperUtil {
 
         if (stack.isEnchanted()) score.addAndGet(2);
         Map<ResourceKey<Enchantment>, Integer> enchantmentPoints = new HashMap<>();
-        enchantmentPoints.put(Enchantments.PROTECTION, 9);
-        enchantmentPoints.put(Enchantments.UNBREAKING, 7);
-        enchantmentPoints.put(Enchantments.MENDING, 8);
-        enchantmentPoints.put(Enchantments.PROJECTILE_PROTECTION, 4);
-        enchantmentPoints.put(Enchantments.BLAST_PROTECTION, 3);
-        enchantmentPoints.put(Enchantments.FIRE_PROTECTION, 5);
-        enchantmentPoints.put(Enchantments.THORNS, 6);
+        enchantmentPoints.put(Enchantments.PROTECTION, 7);
+        enchantmentPoints.put(Enchantments.UNBREAKING, 6);
+        enchantmentPoints.put(Enchantments.MENDING, 5);
+        enchantmentPoints.put(Enchantments.PROJECTILE_PROTECTION, 2);
+        enchantmentPoints.put(Enchantments.BLAST_PROTECTION, 1);
+        enchantmentPoints.put(Enchantments.FIRE_PROTECTION, 3);
+        enchantmentPoints.put(Enchantments.THORNS, 4);
         stack.getEnchantments().entrySet().forEach(e -> {
             Enchantment enchantment = e.getKey().value();
             int level = e.getValue();
