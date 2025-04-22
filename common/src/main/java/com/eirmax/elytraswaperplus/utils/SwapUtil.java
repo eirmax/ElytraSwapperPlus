@@ -59,9 +59,21 @@ public class SwapUtil {
     public static void swapChestToElytra(Player player) {
         ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
         ItemStack elytra = findElytra(player);
+        ItemStack bestChestplate = player.getItemBySlot(EquipmentSlot.CHEST);
         if (chest.is(Items.ELYTRA) && chest.getDamageValue() < chest.getMaxDamage()) {
             return;
         }
+        if (bestChestplate != null) {
+            if (chest.is(Items.ELYTRA)) {
+                player.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
+                if (player.getInventory().getFreeSlot() != -1) {
+                    player.getInventory().add(chest);
+                } else {
+                    player.drop(chest, false);
+                }
+            }
+        }
+
         if (elytra != null) {
             if (!chest.isEmpty()) {
 
