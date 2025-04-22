@@ -6,7 +6,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 public class SwapUtil {
-
     public static boolean auto_equip = false;
 
     public static void toggleAutoEquip() {
@@ -19,17 +18,18 @@ public class SwapUtil {
 
     public static void tryWearElytra(Player player) {
         ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
-        if (!chestItem.is(Items.ELYTRA)) {
-            if (!chestItem.isEmpty()) {
-                player.getInventory().add(chestItem);
-            }
-            ItemStack elytra = findElytra(player);
+        if (chestItem.is(Items.ELYTRA) && chestItem.getDamageValue() < chestItem.getMaxDamage()) {
+            return;
+        }
+        if (!chestItem.isEmpty()) {
+            player.getInventory().add(chestItem);
+        }
 
-            if (!elytra.isEmpty()) {
-                player.setItemSlot(EquipmentSlot.CHEST, elytra);
-                player.getInventory().removeItem(elytra);
-            }
+        ItemStack elytra = findElytra(player);
+
+        if (!elytra.isEmpty()) {
             player.setItemSlot(EquipmentSlot.CHEST, elytra);
+            player.getInventory().removeItem(elytra);
         }
     }
 
@@ -47,8 +47,6 @@ public class SwapUtil {
             }
         }
     }
-
-
     public static void swap(Player player) {
         ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
         if (chest.is(Items.ELYTRA)) {
@@ -61,7 +59,9 @@ public class SwapUtil {
     public static void swapChestToElytra(Player player) {
         ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
         ItemStack elytra = findElytra(player);
-
+        if (chest.is(Items.ELYTRA) && chest.getDamageValue() < chest.getMaxDamage()) {
+            return;
+        }
         if (elytra != null) {
             if (!chest.isEmpty()) {
 
@@ -97,8 +97,6 @@ public class SwapUtil {
                     break;
                 }
             }
-
-            player.setItemSlot(EquipmentSlot.CHEST, bestChestplate);
         }
     }
     /*
