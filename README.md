@@ -1,3 +1,12 @@
+
+![Available for Fabric](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/fabric_vector.svg)
+![Available for NeoForge](https://cdn.modrinth.com/data/cached_images/f0d24b750c946ed2b75ad009167e1d18c0848b39.png)
+[![Available on CurseForge](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/curseforge_vector.svg)](https://www.curseforge.com/minecraft/mc-mods/elytraswapperplus)
+
+Important!
+The mod update will be available only on the client side in the next update.
+You will be able to use ElytraSwapper + on your favorite servers just with install it.
+
 Description:
 ElytraSwapper+ is a next-generation utility that allows the player to swap the chestplate and elytra whenever needed.
 Dependencies (fabric only):
