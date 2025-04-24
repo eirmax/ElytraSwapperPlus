@@ -7,6 +7,7 @@ import net.minecraft.world.item.Items;
 
 public class SwapUtil {
     public static boolean auto_equip = false;
+    public static boolean ModIsInstalledOnServer = false;
 
     public static void toggleAutoEquip() {
         auto_equip = !auto_equip;
@@ -15,7 +16,11 @@ public class SwapUtil {
     public static void setAutoEquip(boolean value) {
         auto_equip = value;
     }
+    public static void ClientSide(Player player) {
 
+
+
+    }
     public static void tryWearElytra(Player player) {
         ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
         if (chestItem.is(Items.ELYTRA) && chestItem.getDamageValue() < chestItem.getMaxDamage()) {

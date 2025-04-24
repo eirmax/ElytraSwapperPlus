@@ -27,7 +27,7 @@ public class ArmorHelperUtil {
         }
         return best;
     }
-    private static boolean isChestplate(ItemStack stack, Player player) {
+    public static boolean isChestplate(ItemStack stack, Player player) {
         return player.getEquipmentSlotForItem(stack) == EquipmentSlot.CHEST;
     }
 
