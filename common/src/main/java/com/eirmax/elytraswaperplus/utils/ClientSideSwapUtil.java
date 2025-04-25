@@ -8,12 +8,21 @@ import net.minecraft.network.protocol.game.ServerboundContainerClickPacket;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 
 public class ClientSideSwapUtil {
+    public static boolean auto_equip = false;
 
+    public static void toggleAutoEquip() {
+        auto_equip = !auto_equip;
+    }
+
+    public static void setAutoEquip(boolean value) {
+        auto_equip = value;
+    }
    public static Inventory PlayerInventory;
     public static void swap(Minecraft client) {
         LocalPlayer player = client.player;
@@ -78,70 +87,15 @@ public class ClientSideSwapUtil {
     private static boolean isElytra(ItemStack stack) {
         return stack.is(Items.ELYTRA);
     }
+
     private static boolean isChestplate(ItemStack stack) {
-        return stack.is(Items.NETHERITE_CHESTPLATE) ||
-                stack.is(Items.DIAMOND_CHESTPLATE) ||
-                stack.is(Items.IRON_CHESTPLATE) ||
-                stack.is(Items.CHAINMAIL_CHESTPLATE) ||
-                stack.is(Items.GOLDEN_CHESTPLATE) ||
-                stack.is(Items.LEATHER_CHESTPLATE);
-    }
-}
-    /*public static void sendSwapPackets(int slot, Minecraft client, Player player) {
-        int sentSlot = slot;
-        if (sentSlot == player.getInventory().getContainerSize() - 1) sentSlot += 5;
-        if (sentSlot < player.getInventory().getSelectionSize()) sentSlot += player.getInventory().getSelectionSize();
-        clickSlot(client, sentSlot);
-        clickSlot(client, 6);
-        clickSlot(client, sentSlot);
-    }
-    private static void clickSlot(Minecraft client, int slot) {
-        ClientPacketListener connection = client.getConnection();
-        if (connection != null) {
-            connection.send(new ServerboundContainerClickPacket(
-                    client.player.containerMenu.containerId, client.player.containerMenu.getStateId(), slot, 0, ClickType.PICKUP, ItemStack.EMPTY, null));
-        }
-
-    }
-    public static void swap(Minecraft client) {
-        LocalPlayer player = client.player;
-        if (player == null) return;
-
-        ItemStack elytra = findElytra(player);
-        ItemStack bestChestplate = getBestChestplate(player);
-        if (!elytra.isEmpty() && !player.getItemBySlot(EquipmentSlot.CHEST).is(Items.ELYTRA)) {
-            int elytraSlot = findSlotForItem(player, elytra);
-            if (elytraSlot != -1) {
-                sendSwapPackets(elytraSlot, client, player);
+        boolean isChestplate = false;
+        if (stack.getItem() instanceof ArmorItem) {
+            ArmorItem armorItem = (ArmorItem)stack.getItem();
+            if (armorItem.getType().getSlot() == EquipmentSlot.CHEST) {
+                isChestplate = true;
             }
         }
-
-        else if (!bestChestplate.isEmpty() && !player.getItemBySlot(EquipmentSlot.CHEST).is(bestChestplate.getItem())) {
-            int chestplateSlot = findSlotForItem(player, bestChestplate);
-            if (chestplateSlot != -1) {
-                sendSwapPackets(chestplateSlot, client, player);
-            }
-        }
+        return isChestplate;
     }
-    private static void swapItem(LocalPlayer player, ItemStack newItem, EquipmentSlot slot) {
-        ItemStack currentItem = player.getItemBySlot(slot);
-        player.setItemSlot(slot, newItem);
-        Inventory inventory = player.getInventory();
-        for (int i = 0; i < inventory.getContainerSize(); i++) {
-            if (inventory.getItem(i).isEmpty()) {
-                inventory.setItem(i, currentItem);
-                break;
-            }
-        }
     }
-    private static int findSlotForItem(Player player, ItemStack item) {
-        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
-            if (ItemStack.isSameItemSameComponents(player.getInventory().getItem(i), item)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-}
-
-     */
