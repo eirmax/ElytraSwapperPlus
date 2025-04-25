@@ -5,90 +5,87 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.protocol.game.ServerboundContainerClickPacket;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import static com.eirmax.elytraswaperplus.utils.ArmorHelperUtil.isChestplate;
 
 public class ClientSideSwapUtil {
-    private static Inventory PlayerInventory;
-    private static final int MAIN_SIZE = PlayerInventory.getSelectionSize() * 4;
-    private static final int HOTBAR_SIZE = PlayerInventory.getSelectionSize();
-    private static final int CHESTPLATE_SLOT = 6;
-    private static final int OFF_HAND_SLOT = PlayerInventory.offhand.size();
 
+   public static Inventory PlayerInventory;
     public static void swap(Minecraft client) {
         LocalPlayer player = client.player;
         if (player == null) return;
 
-        int[] range = getInventoryRange();
         int elytraSlot = -1;
         int chestplateSlot = -1;
+
+        int HOTBAR_SIZE = PlayerInventory.getContainerSize();
+        int MAIN_SIZE = PlayerInventory.getSelectionSize();
+        int TOTAL_SIZE = MAIN_SIZE + 1;
+
+
+        int[] range = new int[TOTAL_SIZE];
+
+        for (int i = 0; i < MAIN_SIZE - HOTBAR_SIZE; i++) {
+            range[i] = i + HOTBAR_SIZE;
+        }
+
+        range[MAIN_SIZE - HOTBAR_SIZE] = PlayerInventory.offhand.size();
+        for (int i = 0; i < HOTBAR_SIZE; i++) {
+            range[i + MAIN_SIZE - HOTBAR_SIZE + 1] = i;
+        }
         for (int slot : range) {
             ItemStack stack = player.getInventory().getItem(slot);
             if (stack.isEmpty()) continue;
 
             if (isElytra(stack) && elytraSlot < 0) {
                 elytraSlot = slot;
-            } else if (isChestplate(stack, player) && chestplateSlot < 0) {
+            } else if (isChestplate(stack) && chestplateSlot < 0) {
                 chestplateSlot = slot;
             }
         }
 
-        ItemStack wornItem = player.getInventory().getItem(CHESTPLATE_SLOT);
+        ItemStack wornItem = player.getInventory().getItem(EquipmentSlot.CHEST.getIndex());
         if (wornItem.isEmpty() && elytraSlot >= 0) {
             sendSwapPackets(elytraSlot, client);
         } else if (isElytra(wornItem) && chestplateSlot >= 0) {
             sendSwapPackets(chestplateSlot, client);
-        } else if (isChestplate(wornItem, player) && elytraSlot >= 0) {
+        } else if (isChestplate(wornItem) && elytraSlot >= 0) {
             sendSwapPackets(elytraSlot, client);
         }
     }
-
-    private static int[] getInventoryRange() {
-        int[] range = new int[MAIN_SIZE + 1];
-        int index = 0;
-        for (int i = HOTBAR_SIZE; i < MAIN_SIZE; i++) {
-            range[index++] = i;
-        }
-        range[index++] = OFF_HAND_SLOT;
-        for (int i = 0; i < HOTBAR_SIZE; i++) {
-            range[index++] = i;
-        }
-
-        return range;
-    }
-
     public static void sendSwapPackets(int slot, Minecraft client) {
         int sentSlot = slot;
-        if (sentSlot == OFF_HAND_SLOT) sentSlot += 5;
-        if (sentSlot < HOTBAR_SIZE) sentSlot += MAIN_SIZE;
+        if (sentSlot == PlayerInventory.offhand.size()) sentSlot += 5;
 
         clickSlot(client, sentSlot);
 
-        clickSlot(client, CHESTPLATE_SLOT);
+        clickSlot(client, EquipmentSlot.CHEST.getIndex());
+
         clickSlot(client, sentSlot);
     }
+
     private static void clickSlot(Minecraft client, int slot) {
         ClientPacketListener connection = client.getConnection();
         if (connection != null) {
-            connection.send(new ServerboundContainerClickPacket(
-                    client.player.containerMenu.containerId,
-                    client.player.containerMenu.getStateId(),
-                    slot,
-                    0,
-                    ClickType.PICKUP,
-                    ItemStack.EMPTY,
-                    null
-            ));
+            connection.send(new ServerboundContainerClickPacket(client.player.containerMenu.containerId, client.player.containerMenu.getStateId(), slot, 0, ClickType.PICKUP, ItemStack.EMPTY, null));
         }
     }
+
     private static boolean isElytra(ItemStack stack) {
         return stack.is(Items.ELYTRA);
     }
-
+    private static boolean isChestplate(ItemStack stack) {
+        return stack.is(Items.NETHERITE_CHESTPLATE) ||
+                stack.is(Items.DIAMOND_CHESTPLATE) ||
+                stack.is(Items.IRON_CHESTPLATE) ||
+                stack.is(Items.CHAINMAIL_CHESTPLATE) ||
+                stack.is(Items.GOLDEN_CHESTPLATE) ||
+                stack.is(Items.LEATHER_CHESTPLATE);
+    }
 }
     /*public static void sendSwapPackets(int slot, Minecraft client, Player player) {
         int sentSlot = slot;
