@@ -7,7 +7,6 @@
     "FlyingHelper"
   ],
   "mixins": [
-    "FlyingHelper"
   ],
   "injectors": {
     "defaultRequire": 1

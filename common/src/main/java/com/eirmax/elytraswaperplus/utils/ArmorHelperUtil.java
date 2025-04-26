@@ -1,4 +1,5 @@
 package com.eirmax.elytraswaperplus.utils;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -12,7 +13,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ArmorHelperUtil {
-    public static ItemStack getBestChestplate(Player player) {
+    public static ItemStack getBestChestplate(LocalPlayer player) {
         ItemStack best = null;
         int highestScore = -1;
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
@@ -27,7 +28,7 @@ public class ArmorHelperUtil {
         }
         return best;
     }
-    public static boolean isChestplate(ItemStack stack, Player player) {
+    public static boolean isChestplate(ItemStack stack, LocalPlayer player) {
         return player.getEquipmentSlotForItem(stack) == EquipmentSlot.CHEST;
     }
 
