@@ -6,12 +6,15 @@ import com.eirmax.elytraswaperplus.network.KeyPressHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.mixin.event.lifecycle.client.MinecraftClientMixin;
+import net.minecraft.client.Minecraft;
 
 public final class ElytraSwaperPlusFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         ElytraSwapperPlus.init();
+
         PayloadTypeRegistry.playC2S().register(KeyPressHandler.TYPE, KeyPressHandler.STREAM_CODEC);
-        ServerPlayNetworking.registerGlobalReceiver(KeyPressHandler.TYPE, (payload, context) -> KeyPressHandler.handle(payload, context.player()));
+        ServerPlayNetworking.registerGlobalReceiver(KeyPressHandler.TYPE, (payload, context) -> KeyPressHandler.handle(payload, Minecraft.getInstance()));
     }
 }

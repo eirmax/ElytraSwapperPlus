@@ -2,6 +2,7 @@ package com.eirmax.neoforge;
 
 import com.eirmax.elytraswaperplus.ElytraSwapperPlus;
 import com.eirmax.elytraswaperplus.network.KeyPressHandler;
+import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -21,13 +22,10 @@ public class CommonNeoforgeEvent {
                 new DirectionalPayloadHandler<>(
                         CommonNeoforgeEvent::handleKeyPressOnServer,
                         CommonNeoforgeEvent::handleKeyPressOnServer
-                )
-        );
+        ));
     }
 
     public static void handleKeyPressOnServer(final KeyPressHandler data, final IPayloadContext context) {
-        context.enqueueWork(() -> {
-            if (context.player() instanceof ServerPlayer serverPlayer) KeyPressHandler.handle(data, serverPlayer);
-        });
+        context.enqueueWork(() -> KeyPressHandler.handle(data, Minecraft.getInstance()));
     }
 }

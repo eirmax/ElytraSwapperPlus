@@ -3,7 +3,6 @@ package com.eirmax.elytraswaperplus.network;
 import com.eirmax.elytraswaperplus.utils.ArmorHelperUtil;
 import com.eirmax.elytraswaperplus.utils.ClientSideSwapUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -31,18 +30,14 @@ public record KeyPressHandler(String component) implements CustomPacketPayload {
     }
 
     public static void handle(KeyPressHandler payload, Minecraft client) {
-        if (client != null) {
-            if (client.player instanceof LocalPlayer player) {
-                if (payload.component.equals("key.elytraswapplus.swap")) {
-                    ItemStack bestChestplate = ArmorHelperUtil.getBestChestplate(player);
-                    if (!bestChestplate.isEmpty()) {
-                        ClientSideSwapUtil.swapElytraAndChestplate(client, bestChestplate);
-                    }
-                } else if (payload.component.equals("key.elytraswapplus.auto_swap")) {
-                    ClientSideSwapUtil.toggleAutoEquip();
-                    ClientSideSwapUtil.setAutoEquip(ClientSideSwapUtil.auto_equip);
-                }
+        if (payload.component.equals("key.elytraswapplus.swap")) {
+            ItemStack bestChestplate = ArmorHelperUtil.getBestChestplate(client);
+            if (!bestChestplate.isEmpty()) {
+                ClientSideSwapUtil.swapElytraAndChest();
             }
+        } else if (payload.component.equals("key.elytraswapplus.auto_swap")) {
+            ClientSideSwapUtil.toggleAutoEquip();
+            ClientSideSwapUtil.setAutoEquip(ClientSideSwapUtil.auto_equip);
         }
     }
 }
