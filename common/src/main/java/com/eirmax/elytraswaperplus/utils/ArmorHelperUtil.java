@@ -11,7 +11,6 @@ import net.minecraft.world.item.enchantment.Enchantments;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ArmorHelperUtil {
