@@ -104,38 +104,6 @@ public class SwapUtil {
             player.setItemSlot(EquipmentSlot.CHEST, bestChestplate);
         }
     }
-    /*
-    public static void swapToBestChestplate(Player player) {
-        ItemStack currentChest = player.getItemBySlot(EquipmentSlot.CHEST);
-        ItemStack bestChestplate = ArmorHelperUtil.getBestChestplate(player);
-
-        if (bestChestplate != null && !currentChest.is(bestChestplate.getItem())) {
-            if (currentChest.is(Items.ELYTRA)) {
-                player.getInventory().add(currentChest);
-            }
-            player.setItemSlot(EquipmentSlot.CHEST, bestChestplate);
-        }
-    }
-    Un useless method
-    public static void swapChestplateToSecondSlot(Player player) {
-        ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
-        ItemStack secondSlotItem = player.getInventory().getItem(1);
-
-        if (chest.is(Items.ELYTRA)) {
-            if (secondSlotItem.is(Items.ELYTRA)) {
-                player.getInventory().removeItem(secondSlotItem);
-                player.setItemSlot(EquipmentSlot.CHEST, secondSlotItem);
-            }
-        } else {
-            if (secondSlotItem.is(chest.getItem())) {
-
-                player.getInventory().removeItem(secondSlotItem);
-                player.setItemSlot(EquipmentSlot.CHEST, secondSlotItem);
-            }
-        }
-    }
-    */
-
     public static ItemStack findElytra(Player player) {
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stack = player.getInventory().getItem(i);
