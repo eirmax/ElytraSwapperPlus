@@ -40,7 +40,7 @@ public record KeyPressHandler(String component) implements CustomPacketPayload {
                 Component message = Component.translatable(
                         "msg.elytraswapplus.auto_swap." + (SwapUtil.auto_equip ? "enabled" : "disabled")
                 );
-                player.sendSystemMessage(message);
+                player.displayClientMessage(message,false);
             }
         }
     }
