@@ -1,6 +1,6 @@
 package com.eirmax.elytraswapperplus.network;
 
-import com.eirmax.elytraswapperplus.utils.SwapUtil;
+import com.eirmax.elytraswaperplus.utils.SwapUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
@@ -40,7 +40,7 @@ public record KeyPressHandler(String component) implements CustomPacketPayload {
                 Component message = Component.translatable(
                         "msg.elytraswapplus.auto_swap." + (SwapUtil.auto_equip ? "enabled" : "disabled")
                 );
-                player.sendSystemMessage(message);
+                player.displayClientMessage(message, false);
             }
         }
     }
