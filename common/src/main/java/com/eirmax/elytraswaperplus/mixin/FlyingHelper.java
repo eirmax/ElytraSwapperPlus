@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Player.class)
 public class FlyingHelper {
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "", shift = At.Shift.AFTER))
+    @Inject(method = "tick", at = @At("TAIL"))
     public void onTickMovementEnd(CallbackInfo ci) {
         if (!SwapUtil.auto_equip) {
             return;
