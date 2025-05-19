@@ -4,10 +4,8 @@
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "client": [
-    "FlyingHelper"
   ],
   "mixins": [
-    "FlyingHelper"
   ],
   "injectors": {
     "defaultRequire": 1

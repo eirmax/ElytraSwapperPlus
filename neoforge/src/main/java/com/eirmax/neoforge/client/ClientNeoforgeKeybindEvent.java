@@ -1,6 +1,5 @@
 package com.eirmax.neoforge.client;
 
-import com.eirmax.elytraswaperplus.ElytraSwapperPlus;
 import net.minecraft.client.KeyMapping;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -12,7 +11,7 @@ import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
 import java.util.List;
 
-@EventBusSubscriber(modid = ElytraSwapperPlus.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = "elytraswapperplus", bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientNeoforgeKeybindEvent {
     public static final List<Lazy<KeyMapping>> keyMappings = new ArrayList<>();
 
