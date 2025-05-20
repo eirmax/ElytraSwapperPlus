@@ -16,6 +16,7 @@ public class ClientFabricKeybindEvent {
             for (KeyMapping key : keyMappings) {
                 while (client.player != null && key.consumeClick()) {
                     if (key.getName().equals("key.elytraswapplus.swap")) {
+                        System.out.println("Swapping chestplate!");
                         InventoryUtils.swapChestplate(Minecraft.getInstance());
                     }
                 }

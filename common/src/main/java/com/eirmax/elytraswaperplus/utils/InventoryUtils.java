@@ -22,32 +22,19 @@ public class InventoryUtils {
 
         int elytraSlot = -1;
         int bestChestplateSlot = -1;
-
-        int HOTBAR_SIZE = Inventory.getSelectionSize();
-        int MAIN_SIZE = Inventory.INVENTORY_SIZE;
-        int TOTAL_SIZE = MAIN_SIZE + 1;
-
-        int[] range = new int[TOTAL_SIZE];
-
-        for (int i = 0; i < MAIN_SIZE - HOTBAR_SIZE; i++) {
-            range[i] = i + HOTBAR_SIZE;
-        }
-        range[MAIN_SIZE - HOTBAR_SIZE] = Inventory.SLOT_OFFHAND;
-        for (int i = 0; i < HOTBAR_SIZE; i++) {
-            range[i + MAIN_SIZE - HOTBAR_SIZE + 1] = i;
-        }
-
         int bestScore = -1;
-        for (int slot : range) {
-            ItemStack stack = client.player.getInventory().getItem(slot);
+
+        // Перебираем все 36 слотов инвентаря (0-35)
+        for (int i = 0; i < 36; i++) {
+            ItemStack stack = client.player.getInventory().getItem(i);
             if (!stack.isEmpty()) {
-                if (isElytra(stack) && elytraSlot < 0) {
-                    elytraSlot = slot;
+                if (isElytra(stack) && elytraSlot == -1) {
+                    elytraSlot = i;
                 } else if (isChestplate(stack)) {
                     int score = calculateChestplateScore(stack);
                     if (score > bestScore) {
                         bestScore = score;
-                        bestChestplateSlot = slot;
+                        bestChestplateSlot = i;
                     }
                 }
             }
@@ -55,14 +42,15 @@ public class InventoryUtils {
 
         ItemStack wornItemStack = client.player.getInventory().getItem(38);
 
-        if (wornItemStack.isEmpty() && elytraSlot >= 0) {
-            sendSwapPackets(elytraSlot, client);
-        }
-        else if (isElytra(wornItemStack) && bestChestplateSlot >= 0) {
+        // Логика свапа: если надета элитра — надеваем нагрудник, если надет нагрудник — надеваем элитру
+        if (isElytra(wornItemStack) && bestChestplateSlot != -1) {
             sendSwapPackets(bestChestplateSlot, client);
-        }
-        else if (isChestplate(wornItemStack) && elytraSlot >= 0) {
+        } else if (isChestplate(wornItemStack) && elytraSlot != -1) {
             sendSwapPackets(elytraSlot, client);
+        } else if (wornItemStack.isEmpty() && elytraSlot != -1) {
+            sendSwapPackets(elytraSlot, client);
+        } else {
+            System.out.println("Нет подходящего предмета для свапа!");
         }
     }
 
@@ -110,19 +98,44 @@ public class InventoryUtils {
         return score.get();
     }
 
+    private static void sendSwapPackets(int slotInInventory, Minecraft client) {
+        int slotInMenu = slotInInventory + 10; // 0-35 -> 10-45
+        int chestplateSlotInMenu = 6; // слот нагрудника
 
-    private static void sendSwapPackets(int slot, Minecraft client) {
-        int sentSlot = slot;
+        ItemStack worn = client.player.getInventory().getItem(38);
 
-        if (sentSlot == Inventory.SLOT_OFFHAND) {
-            sentSlot += 5;
+        if (worn.isEmpty()) {
+            // Если слот нагрудника пустой — shift-клик по элитре
+            client.gameMode.handleInventoryMouseClick(
+                    client.player.containerMenu.containerId,
+                    slotInMenu,
+                    0,
+                    ClickType.QUICK_MOVE,
+                    client.player
+            );
+        } else {
+            // Обычный swap, если что-то надето
+            client.gameMode.handleInventoryMouseClick(
+                    client.player.containerMenu.containerId,
+                    slotInMenu,
+                    0,
+                    ClickType.PICKUP,
+                    client.player
+            );
+            client.gameMode.handleInventoryMouseClick(
+                    client.player.containerMenu.containerId,
+                    chestplateSlotInMenu,
+                    0,
+                    ClickType.PICKUP,
+                    client.player
+            );
+            client.gameMode.handleInventoryMouseClick(
+                    client.player.containerMenu.containerId,
+                    slotInMenu,
+                    0,
+                    ClickType.PICKUP,
+                    client.player
+            );
         }
-        if (sentSlot < Inventory.getSelectionSize()) {
-            sentSlot += Inventory.INVENTORY_SIZE;
-        }
-
-        client.player.containerMenu.clicked(0, sentSlot, ClickType.PICKUP, client.player);
-        client.player.containerMenu.clicked(0, sentSlot, ClickType.PICKUP, client.player);
-        client.player.containerMenu.clicked(0, sentSlot, ClickType.PICKUP, client.player);
     }
 }
