@@ -3,6 +3,7 @@ package com.eirmax.neoforge.client;
 import com.eirmax.elytraswaperplus.utils.InventoryUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.network.chat.Component;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -17,6 +18,17 @@ public class ClientNeoforgeEvent {
             while (Minecraft.getInstance().player != null && key.get().consumeClick()) {
                 if (key.get().getName().equals("key.elytraswapplus.swap")) {
                     InventoryUtils.swapChestplate(Minecraft.getInstance());
+                }
+                if (key.get().getName().equals("key.elytraswapplus.auto_swap")) {
+                    InventoryUtils.toggleAutoEquip();
+                    InventoryUtils.setAutoEquip(InventoryUtils.auto_equip);
+
+                    Component message = Component.translatable(
+                            "msg.elytraswapplus.auto_swap." + (InventoryUtils.auto_equip ? "enabled" : "disabled")
+                    );
+                    if (Minecraft.getInstance().player != null) {
+                        Minecraft.getInstance().player.displayClientMessage(message, true);
+                    }
                 }
             }
         }

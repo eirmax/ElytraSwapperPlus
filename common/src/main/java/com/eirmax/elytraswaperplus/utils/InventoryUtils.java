@@ -2,6 +2,10 @@ package com.eirmax.elytraswaperplus.utils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
+import net.minecraft.network.protocol.game.ClientboundCommandSuggestionsPacket;
+import net.minecraft.network.protocol.game.ClientboundCommandsPacket;
+import net.minecraft.network.protocol.game.ServerboundClientCommandPacket;
+import net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -12,9 +16,71 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class InventoryUtils {
+    public static boolean auto_equip = false;
 
+    public static void toggleAutoEquip() {
+        auto_equip = !auto_equip;
+    }
+
+    public static void setAutoEquip(boolean value) {
+        auto_equip = value;
+    }
+
+    public static void tryWearChestplate(Minecraft client) {
+        if (client.player == null || client.player.isDeadOrDying()) {
+            return;
+        }
+        ItemStack equipped = client.player.getInventory().getItem(38);
+        if (isChestplate(equipped)) {
+            return;
+        }
+        List<Integer> chestplateSlots = getChestplateSlots(client);
+        chestplateSlots = chestplateSlots.stream()
+                .filter(slot -> ArmorHelperUtil.calculateScore(client.player.getInventory().getItem(slot)) > 0)
+                .sorted((a, b) -> Integer.compare(
+                        ArmorHelperUtil.calculateScore(client.player.getInventory().getItem(b)),
+                        ArmorHelperUtil.calculateScore(client.player.getInventory().getItem(a))
+                ))
+                .collect(Collectors.toList());
+
+        if (!chestplateSlots.isEmpty()) {
+            swap(chestplateSlots.get(0), client);
+        }
+    }
+//    private static void wearElytra(int slotId) {
+//        swap(slotId, Minecraft.getInstance());
+//        try {
+//            // Для Fabric:
+//            Minecraft.getInstance().getConnection().send(new ClientboundCommandSuggestionsPacket(Minecraft.getInstance().player, ServerboundClientCommandPacket.Action.)
+//            );
+//            // Для NeoForge/Forge (примерно так, если отличается — смотри документацию):
+//            Minecraft.getInstance().getConnection().send(new ClientCommandC2SPacket(...));
+//
+//            Minecraft.getInstance().player.startFallFlying();
+//        } catch (NullPointerException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
+    public static void tryWearElytra(Minecraft client) {
+        if (client.player == null || client.player.isDeadOrDying()) return;
+        ItemStack equipped = client.player.getInventory().getItem(38);
+        if (isElytra(equipped)) return;
+
+        List<Integer> elytraSlots = getElytraSlots(client);
+        elytraSlots = elytraSlots.stream()
+                .sorted((a, b) -> Integer.compare(
+                        getElytraStat(client.player.getInventory().getItem(b)),
+                        getElytraStat(client.player.getInventory().getItem(a))
+                ))
+                .collect(Collectors.toList());
+
+        if (!elytraSlots.isEmpty()) {
+            swap(elytraSlots.get(0), client);
+        }
+    }
 
     public static void swapChestplate(Minecraft client) {
         if (client.player == null || client.player.isDeadOrDying()) return;

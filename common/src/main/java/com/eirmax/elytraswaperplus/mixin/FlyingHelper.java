@@ -1,47 +1,48 @@
-//package com.eirmax.elytraswaperplus.mixin;
-//
-//import net.minecraft.world.effect.MobEffects;
-//import net.minecraft.world.entity.EquipmentSlot;
-//import net.minecraft.world.entity.player.Player;
-//import net.minecraft.world.item.ItemStack;
-//import net.minecraft.world.item.Items;
-//import org.spongepowered.asm.mixin.Mixin;
-//import org.spongepowered.asm.mixin.injection.At;
-//import org.spongepowered.asm.mixin.injection.Inject;
-//import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-//
-//@Mixin(Player.class)
-//public class FlyingHelper {
-//
-//    @Inject(method = "tick", at = @At("TAIL"))
-//    public void onTickMovementEnd(CallbackInfo ci) {
-//        if (!SwapUtil.auto_equip) {
-//            return;
-//        }
-//
-//        Player player = (Player) (Object) this;
-//        ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
-//
-//        if (!player.hasEffect(MobEffects.SLOW_FALLING) && !player.isInPowderSnow) {
-//            if (player.onGround()) {
-//                if (player.isFallFlying()) {
-//                    player.stopFallFlying();
-//                }
-//            } else if (!player.isInWater() && !player.isInLava() &&
-//                    player.getDeltaMovement().y < 0 &&
-//                    !player.isFallFlying()) {
-//
-//                if (!chestItem.is(Items.ELYTRA)) {
-//                    SwapUtil.tryWearElytra(player);
-//                    chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
-//                }
-//                if (player.getDeltaMovement().y < -0.5 && chestItem.is(Items.ELYTRA) && !player.isFallFlying()) {
-//                    player.startFallFlying();
-//                }
-//            }
-//            if (chestItem.is(Items.ELYTRA) && player.getInventory().countItem(Items.ELYTRA) > 1) {
-//                SwapUtil.elytraRemoveFirstElytra(player);
-//            }
-//        }
-//    }
-//}
+package com.eirmax.elytraswaperplus.mixin;
+
+import com.eirmax.elytraswaperplus.utils.InventoryUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.ItemStack;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(LocalPlayer.class)
+public class FlyingHelper {
+
+    private boolean wasOnGround = true;
+
+    @Inject(method = "onSyncedDataUpdated", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;isFallFlying()Z", shift = At.Shift.AFTER))
+    public void onTickMovementEnd(CallbackInfo ci) {
+        LocalPlayer player = (LocalPlayer) (Object) this;
+
+        if (!InventoryUtils.auto_equip) return;
+
+        boolean onGround = player.onGround();
+        boolean isFallFlying = player.isFallFlying();
+        boolean isFalling = player.getDeltaMovement().y < -0.5
+                && !onGround && !isFallFlying
+                && !player.isInWater() && !player.isInLava()
+                && !player.hasEffect(MobEffects.SLOW_FALLING) && !player.hasEffect(MobEffects.LEVITATION);
+
+        if (isFalling) {
+            ItemStack chest = player.getInventory().getItem(38);
+            if (!InventoryUtils.isElytra(chest)) {
+                InventoryUtils.tryWearElytra(Minecraft.getInstance());
+                chest = player.getInventory().getItem(38);
+            }
+            if (InventoryUtils.isElytra(chest) && !player.isFallFlying()) {
+                player.startFallFlying();
+            }
+        }
+
+        if (!wasOnGround && onGround) {
+            InventoryUtils.tryWearChestplate(Minecraft.getInstance());
+        }
+
+        wasOnGround = onGround;
+    }
+}
