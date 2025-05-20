@@ -16,7 +16,6 @@ public class ClientNeoforgeEvent {
         for (Lazy<KeyMapping> key : ClientNeoforgeKeybindEvent.keyMappings) {
             while (Minecraft.getInstance().player != null && key.get().consumeClick()) {
                 if (key.get().getName().equals("key.elytraswapplus.swap")) {
-                    System.out.println("Swapping chestplate!");
                     InventoryUtils.swapChestplate(Minecraft.getInstance());
                 }
             }
