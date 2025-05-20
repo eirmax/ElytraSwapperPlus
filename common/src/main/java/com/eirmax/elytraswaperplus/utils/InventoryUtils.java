@@ -1,61 +1,84 @@
 package com.eirmax.elytraswaperplus.utils;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.Holder;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class InventoryUtils {
 
+
     public static void swapChestplate(Minecraft client) {
-        if (client.player == null || client.player.isDeadOrDying()) {
-            return;
-        }
+        if (client.player == null || client.player.isDeadOrDying()) return;
 
-        int elytraSlot = -1;
+        ItemStack worn = client.player.getInventory().getItem(38);
+
+        int bestElytraSlot = getBestElytraSlot(client);
+        int bestSlot = ArmorHelperUtil.getBestChestplate(client.player);
+        ItemStack bestChestplate = bestSlot != -1 ? client.player.getInventory().getItem(bestSlot) : ItemStack.EMPTY;
         int bestChestplateSlot = -1;
-        int bestScore = -1;
-
-        for (int i = 0; i < 36; i++) {
-            ItemStack stack = client.player.getInventory().getItem(i);
-            if (!stack.isEmpty()) {
-                if (isElytra(stack) && elytraSlot == -1) {
-                    elytraSlot = i;
-                } else if (isChestplate(stack)) {
-                    int score = calculateChestplateScore(stack);
-                    if (score > bestScore) {
-                        bestScore = score;
-                        bestChestplateSlot = i;
-                    }
-                }
+        for (int i = 0; i < client.player.getInventory().getContainerSize(); i++) {
+            if (client.player.getInventory().getItem(i) == bestChestplate) {
+                bestChestplateSlot = i;
+                break;
             }
         }
 
-        ItemStack wornItemStack = client.player.getInventory().getItem(38);
-
-        if (isElytra(wornItemStack) && bestChestplateSlot != -1) {
-            sendSwapPackets(bestChestplateSlot, client);
-        } else if (isChestplate(wornItemStack) && elytraSlot != -1) {
-            sendSwapPackets(elytraSlot, client);
-        } else if (wornItemStack.isEmpty() && elytraSlot != -1) {
-            sendSwapPackets(elytraSlot, client);
+        if (isElytra(worn) && bestChestplateSlot != -1) {
+            swap(bestChestplateSlot, client);
+        } else if (isChestplate(worn) && bestElytraSlot != -1) {
+            swap(bestElytraSlot, client);
+        } else if (worn.isEmpty() && bestElytraSlot != -1) {
+            swap(bestElytraSlot, client);
         } else {
             System.out.println("There is no suitable item for swap!");
         }
     }
-
-    private static boolean isElytra(ItemStack stack) {
-        return stack.getItem() == Items.ELYTRA;
+    public static List<Integer> getElytraSlots(Minecraft client) {
+        List<Integer> elytraSlots = new ArrayList<>();
+        for (int i = 0; i < 36; i++) {
+            ItemStack stack = client.player.getInventory().getItem(i);
+            if (isElytra(stack)) {
+                elytraSlots.add(i);
+            }
+        }
+        return elytraSlots;
+    }
+    public static List<Integer> getChestplateSlots(Minecraft client) {
+        List<Integer> chestplateSlots = new ArrayList<>();
+        for (int i = 0; i < 36; i++) {
+            ItemStack stack = client.player.getInventory().getItem(i);
+            if (isChestplate(stack)) {
+                chestplateSlots.add(i);
+            }
+        }
+        return chestplateSlots;
     }
 
-    private static boolean isChestplate(ItemStack stack) {
+    public static int getBestElytraSlot(Minecraft client) {
+        return getElytraSlots(client).stream()
+                .max(Comparator.comparingInt(slot -> getElytraStat(client.player.getInventory().getItem(slot))))
+                .orElse(-1);
+    }
+    public static int getBestChestplateSlot(Minecraft client) {
+        return getChestplateSlots(client).stream()
+                .max(Comparator.comparingInt(slot -> ArmorHelperUtil.calculateScore(client.player.getInventory().getItem(slot))))
+                .orElse(-1);
+    }
+    public static boolean isElytra(ItemStack stack) {
+        return stack != null && stack.getItem() == Items.ELYTRA;
+    }
+
+    public static boolean isChestplate(ItemStack stack) {
+        if (stack == null) return false;
         return stack.getItem() == Items.NETHERITE_CHESTPLATE
                 || stack.getItem() == Items.DIAMOND_CHESTPLATE
                 || stack.getItem() == Items.IRON_CHESTPLATE
@@ -64,73 +87,31 @@ public class InventoryUtils {
                 || stack.getItem() == Items.LEATHER_CHESTPLATE;
     }
 
-    private static int calculateChestplateScore(ItemStack stack) {
-        AtomicInteger score = new AtomicInteger();
-
-        if (stack.getItem() == Items.NETHERITE_CHESTPLATE) score.addAndGet(6);
-        else if (stack.getItem() == Items.DIAMOND_CHESTPLATE) score.addAndGet(5);
-        else if (stack.getItem() == Items.IRON_CHESTPLATE) score.addAndGet(4);
-        else if (stack.getItem() == Items.CHAINMAIL_CHESTPLATE) score.addAndGet(3);
-        else if (stack.getItem() == Items.GOLDEN_CHESTPLATE) score.addAndGet(2);
-        else if (stack.getItem() == Items.LEATHER_CHESTPLATE) score.addAndGet(1);
-
-        if (stack.isEnchanted()) score.addAndGet(1);
-        Map<ResourceKey<Enchantment>, Integer> enchantmentPoints = new HashMap<>();
-        enchantmentPoints.put(Enchantments.PROTECTION, 7);
-        enchantmentPoints.put(Enchantments.UNBREAKING, 6);
-        enchantmentPoints.put(Enchantments.MENDING, 5);
-        enchantmentPoints.put(Enchantments.PROJECTILE_PROTECTION, 2);
-        enchantmentPoints.put(Enchantments.BLAST_PROTECTION, 1);
-        enchantmentPoints.put(Enchantments.FIRE_PROTECTION, 3);
-        enchantmentPoints.put(Enchantments.THORNS, 4);
-        stack.getEnchantments().entrySet().forEach(e -> {
-            Enchantment enchantment = e.getKey().value();
-            int level = e.getValue();
-            Integer points = enchantmentPoints.get(enchantment);
-            if (points != null) {
-                score.addAndGet(points * level);
-            }
-        });
-
-        return score.get();
+    public static int getElytraStat(ItemStack elytraItem) {
+        int stat = 0;
+        if (elytraItem == null) return stat;
+        stat += EnchantmentHelper.getItemEnchantmentLevel((Holder<Enchantment>) Enchantments.MENDING, elytraItem) * 3;
+        stat += EnchantmentHelper.getItemEnchantmentLevel((Holder<Enchantment>) Enchantments.UNBREAKING, elytraItem) * 2;
+        return stat;
     }
 
-    private static void sendSwapPackets(int slotInInventory, Minecraft client) {
-        int slotInMenu = slotInInventory + 10;
-        int chestplateSlotInMenu = 6;
+    public static void swap(int slotInInventory, Minecraft client) {
+        int slot2 = slotInInventory;
+        if (slot2 == 40) slot2 = 45;
+        if (slot2 < 9) slot2 += 36;
 
-        ItemStack worn = client.player.getInventory().getItem(38);
-
-        if (worn.isEmpty()) {
+        try {
             client.gameMode.handleInventoryMouseClick(
-                    client.player.containerMenu.containerId,
-                    slotInMenu,
-                    0,
-                    ClickType.QUICK_MOVE,
-                    client.player
-            );
-        } else {
-            client.gameMode.handleInventoryMouseClick(
-                    client.player.containerMenu.containerId,
-                    slotInMenu,
-                    0,
-                    ClickType.PICKUP,
-                    client.player
+                    client.player.containerMenu.containerId, slot2, 0, ClickType.PICKUP, client.player
             );
             client.gameMode.handleInventoryMouseClick(
-                    client.player.containerMenu.containerId,
-                    chestplateSlotInMenu,
-                    0,
-                    ClickType.PICKUP,
-                    client.player
+                    client.player.containerMenu.containerId, 6, 0, ClickType.PICKUP, client.player
             );
             client.gameMode.handleInventoryMouseClick(
-                    client.player.containerMenu.containerId,
-                    slotInMenu,
-                    0,
-                    ClickType.PICKUP,
-                    client.player
+                    client.player.containerMenu.containerId, slot2, 0, ClickType.PICKUP, client.player
             );
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
         }
     }
 }

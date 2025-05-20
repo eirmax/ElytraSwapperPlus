@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ArmorHelperUtil {
-    public static ItemStack getBestChestplate(Player player) {
-        ItemStack best = null;
+    public static int getBestChestplate(Player player) {
+        int bestSlot = -1;
         int highestScore = -1;
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stack = player.getInventory().getItem(i);
@@ -21,17 +21,17 @@ public class ArmorHelperUtil {
                 int score = calculateScore(stack);
                 if (score > highestScore) {
                     highestScore = score;
-                    best = stack;
+                    bestSlot = i;
                 }
             }
         }
-        return best;
+        return bestSlot;
     }
     public static boolean isChestplate(ItemStack stack, Player player) {
         return player.getEquipmentSlotForItem(stack) == EquipmentSlot.CHEST;
     }
 
-    private static int calculateScore(ItemStack stack) {
+    public static int calculateScore(ItemStack stack) {
         AtomicInteger score = new AtomicInteger();
 
         if (stack.getItem() == Items.NETHERITE_CHESTPLATE) score.addAndGet(6);
