@@ -1,4 +1,5 @@
 package com.eirmax.elytraswaperplus.utils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -12,12 +13,12 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ArmorHelperUtil {
-    public static int getBestChestplate(Player player) {
+    public static int getBestChestplate(Minecraft client) {
         int bestSlot = -1;
         int highestScore = -1;
-        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
-            ItemStack stack = player.getInventory().getItem(i);
-            if (isChestplate(stack, player) && !stack.is(Items.ELYTRA)) {
+        for (int i = 0; i < client.player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = client.player.getInventory().getItem(i);
+            if (isChestplate(stack, client) && !stack.is(Items.ELYTRA)) {
                 int score = calculateScore(stack);
                 if (score > highestScore) {
                     highestScore = score;
@@ -27,8 +28,8 @@ public class ArmorHelperUtil {
         }
         return bestSlot;
     }
-    public static boolean isChestplate(ItemStack stack, Player player) {
-        return player.getEquipmentSlotForItem(stack) == EquipmentSlot.CHEST;
+    public static boolean isChestplate(ItemStack stack, Minecraft client) {
+        return client.player.getEquipmentSlotForItem(stack) == EquipmentSlot.CHEST;
     }
 
     public static int calculateScore(ItemStack stack) {

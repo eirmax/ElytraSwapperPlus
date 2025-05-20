@@ -1,10 +1,9 @@
 package com.eirmax.elytraswaperplus.utils;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
-import net.minecraft.network.protocol.game.ClientboundCommandSuggestionsPacket;
-import net.minecraft.network.protocol.game.ClientboundCommandsPacket;
-import net.minecraft.network.protocol.game.ServerboundClientCommandPacket;
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
@@ -50,22 +49,21 @@ public class InventoryUtils {
             swap(chestplateSlots.get(0), client);
         }
     }
-//    private static void wearElytra(int slotId) {
-//        swap(slotId, Minecraft.getInstance());
-//        try {
-//            // Для Fabric:
-//            Minecraft.getInstance().getConnection().send(new ClientboundCommandSuggestionsPacket(Minecraft.getInstance().player, ServerboundClientCommandPacket.Action.)
-//            );
-//            // Для NeoForge/Forge (примерно так, если отличается — смотри документацию):
-//            Minecraft.getInstance().getConnection().send(new ClientCommandC2SPacket(...));
-//
-//            Minecraft.getInstance().player.startFallFlying();
-//        } catch (NullPointerException ex) {
-//            ex.printStackTrace();
-//        }
-//    }
+    public static void wearElytraAndFly(int slotId, Minecraft client) {
+        swap(slotId, client);
+
+        LocalPlayer player = client.player;
+        if (player == null) return;
+
+        client.getConnection().send(
+                new ServerboundPlayerCommandPacket(player, ServerboundPlayerCommandPacket.Action.START_FALL_FLYING)
+        );
+        player.startFallFlying();
+    }
+
     public static void tryWearElytra(Minecraft client) {
         if (client.player == null || client.player.isDeadOrDying()) return;
+
         ItemStack equipped = client.player.getInventory().getItem(38);
         if (isElytra(equipped)) return;
 
@@ -78,7 +76,8 @@ public class InventoryUtils {
                 .collect(Collectors.toList());
 
         if (!elytraSlots.isEmpty()) {
-            swap(elytraSlots.get(0), client);
+            int bestSlot = elytraSlots.get(0);
+            wearElytraAndFly(bestSlot, client);
         }
     }
 
@@ -88,7 +87,7 @@ public class InventoryUtils {
         ItemStack worn = client.player.getInventory().getItem(38);
 
         int bestElytraSlot = getBestElytraSlot(client);
-        int bestSlot = ArmorHelperUtil.getBestChestplate(client.player);
+        int bestSlot = ArmorHelperUtil.getBestChestplate(client);
         ItemStack bestChestplate = bestSlot != -1 ? client.player.getInventory().getItem(bestSlot) : ItemStack.EMPTY;
         int bestChestplateSlot = -1;
         for (int i = 0; i < client.player.getInventory().getContainerSize(); i++) {

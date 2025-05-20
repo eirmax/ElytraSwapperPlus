@@ -6,6 +6,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -13,10 +14,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LocalPlayer.class)
 public class FlyingHelper {
 
+    @Unique
     private boolean wasOnGround = true;
 
-    @Inject(method = "onSyncedDataUpdated", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;isFallFlying()Z", shift = At.Shift.AFTER))
-    public void onTickMovementEnd(CallbackInfo ci) {
+    @Inject(method = "aiStep", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;isFallFlying()Z", shift = At.Shift.AFTER))
+    public void onAiStep(CallbackInfo ci) {
         LocalPlayer player = (LocalPlayer) (Object) this;
 
         if (!InventoryUtils.auto_equip) return;
@@ -40,6 +42,9 @@ public class FlyingHelper {
         }
 
         if (!wasOnGround && onGround) {
+            if (player.isFallFlying()) {
+                player.stopFallFlying();
+            }
             InventoryUtils.tryWearChestplate(Minecraft.getInstance());
         }
 
