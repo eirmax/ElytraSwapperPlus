@@ -2,7 +2,6 @@ package com.eirmax.elytraswaperplus.utils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -24,7 +23,6 @@ public class InventoryUtils {
         int bestChestplateSlot = -1;
         int bestScore = -1;
 
-        // Перебираем все 36 слотов инвентаря (0-35)
         for (int i = 0; i < 36; i++) {
             ItemStack stack = client.player.getInventory().getItem(i);
             if (!stack.isEmpty()) {
@@ -42,7 +40,6 @@ public class InventoryUtils {
 
         ItemStack wornItemStack = client.player.getInventory().getItem(38);
 
-        // Логика свапа: если надета элитра — надеваем нагрудник, если надет нагрудник — надеваем элитру
         if (isElytra(wornItemStack) && bestChestplateSlot != -1) {
             sendSwapPackets(bestChestplateSlot, client);
         } else if (isChestplate(wornItemStack) && elytraSlot != -1) {
@@ -50,7 +47,7 @@ public class InventoryUtils {
         } else if (wornItemStack.isEmpty() && elytraSlot != -1) {
             sendSwapPackets(elytraSlot, client);
         } else {
-            System.out.println("Нет подходящего предмета для свапа!");
+            System.out.println("There is no suitable item for swap!");
         }
     }
 
@@ -99,13 +96,12 @@ public class InventoryUtils {
     }
 
     private static void sendSwapPackets(int slotInInventory, Minecraft client) {
-        int slotInMenu = slotInInventory + 10; // 0-35 -> 10-45
-        int chestplateSlotInMenu = 6; // слот нагрудника
+        int slotInMenu = slotInInventory + 10;
+        int chestplateSlotInMenu = 6;
 
         ItemStack worn = client.player.getInventory().getItem(38);
 
         if (worn.isEmpty()) {
-            // Если слот нагрудника пустой — shift-клик по элитре
             client.gameMode.handleInventoryMouseClick(
                     client.player.containerMenu.containerId,
                     slotInMenu,
@@ -114,7 +110,6 @@ public class InventoryUtils {
                     client.player
             );
         } else {
-            // Обычный swap, если что-то надето
             client.gameMode.handleInventoryMouseClick(
                     client.player.containerMenu.containerId,
                     slotInMenu,
