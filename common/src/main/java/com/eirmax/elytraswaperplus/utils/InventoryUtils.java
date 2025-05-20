@@ -5,6 +5,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -12,9 +13,8 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class InventoryUtils {
@@ -151,12 +151,23 @@ public class InventoryUtils {
     }
 
     public static int getElytraStat(ItemStack elytraItem) {
-        int stat = 0;
-        if (elytraItem == null) return stat;
-        stat += EnchantmentHelper.getItemEnchantmentLevel((Holder<Enchantment>) Enchantments.MENDING, elytraItem) * 3;
-        stat += EnchantmentHelper.getItemEnchantmentLevel((Holder<Enchantment>) Enchantments.UNBREAKING, elytraItem) * 2;
-        return stat;
+        AtomicInteger stat = new AtomicInteger();
+        if (elytraItem == null || elytraItem.isEmpty()) return 0;
+        if (elytraItem.isEnchanted()) stat.addAndGet(1);
+        Map<ResourceKey<Enchantment>, Integer> enchantmentPoints = new HashMap<>();
+        enchantmentPoints.put(Enchantments.PROTECTION, 1);
+        enchantmentPoints.put(Enchantments.UNBREAKING, 3);
+        elytraItem.getEnchantments().entrySet().forEach(e -> {
+            Enchantment enchantment = e.getKey().value();
+            int level = e.getValue();
+            Integer points = enchantmentPoints.get(enchantment);
+            if (points != null) {
+                stat.addAndGet(points * level);
+            }
+        });
+        return stat.get();
     }
+
 
     public static void swap(int slotInInventory, Minecraft client) {
         int slot2 = slotInInventory;
