@@ -38,8 +38,6 @@ public class InventoryUtils {
             swap(bestElytraSlot, client);
         } else if (worn.isEmpty() && bestElytraSlot != -1) {
             swap(bestElytraSlot, client);
-        } else {
-            System.out.println("There is no suitable item for swap!");
         }
     }
     public static List<Integer> getElytraSlots(Minecraft client) {
