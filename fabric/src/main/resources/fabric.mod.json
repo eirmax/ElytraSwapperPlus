@@ -13,7 +13,7 @@
   },
   "license": "MIT",
   "icon": "assets/elytraswapperplus/icon.png",
-  "environment": "*",
+  "environment": "CLIENT",
   "entrypoints": {
     "main": [
       "com.eirmax.fabric.ElytraSwaperPlusFabric"
