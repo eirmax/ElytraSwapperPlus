@@ -1,0 +1,7 @@
+{
+  "key.elytraswapplus.swap": "鞘翅切换",
+  "key.elytraswapplus.auto_swap": "自动切换",
+  "category.elytraswapplus": "鞘翅切换器",
+  "msg.elytraswapplus.auto_swap.enabled": "自动切换：已启用",
+  "msg.elytraswapplus.auto_swap.disabled": "自动切换：已禁用"
+}
