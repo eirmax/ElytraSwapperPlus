@@ -7,11 +7,6 @@
 ![ElytraSwapperClient1 (1)](https://github.com/user-attachments/assets/9633f0f2-ee4d-474d-9a38-c41166b570bf) ![image3](https://github.com/user-attachments/assets/018ca6a9-de71-4400-94a6-80a0a282b025)
 
 
-
-Important!
-The mod update will be available only on the client side in the next update.
-You will be able to use ElytraSwapper + on your favorite servers just with install it.
-
 Description:
 ElytraSwapper+ is a next-generation utility that allows the player to swap the chestplate and elytra whenever needed.
 Dependencies (fabric only):
