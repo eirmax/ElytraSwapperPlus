@@ -11,4 +11,3 @@ rootProject.name = 'elytraswapperplus'
 
 include 'common'
 include 'fabric'
-include 'neoforge'
