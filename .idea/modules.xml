@@ -2,6 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/com.eirmax.elytraswapperplus.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/com.eirmax.elytraswapperplus.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/com.eirmax.elytraswapperplus.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/com.eirmax.elytraswapperplus.common.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/com.eirmax.elytraswapperplus.common.test.iml" filepath="$PROJECT_DIR$/.idea/modules/common/com.eirmax.elytraswapperplus.common.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric/com.eirmax.elytraswapperplus.fabric.main.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric/com.eirmax.elytraswapperplus.fabric.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric/com.eirmax.elytraswapperplus.fabric.test.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric/com.eirmax.elytraswapperplus.fabric.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/neoforge/com.eirmax.elytraswapperplus.neoforge.main.iml" filepath="$PROJECT_DIR$/.idea/modules/neoforge/com.eirmax.elytraswapperplus.neoforge.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/neoforge/com.eirmax.elytraswapperplus.neoforge.test.iml" filepath="$PROJECT_DIR$/.idea/modules/neoforge/com.eirmax.elytraswapperplus.neoforge.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/elitraswaperplus.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/elitraswaperplus.common.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/elitraswaperplus.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/elitraswaperplus.common.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/elitraswaperplus.common.test.iml" filepath="$PROJECT_DIR$/.idea/modules/common/elitraswaperplus.common.test.iml" />

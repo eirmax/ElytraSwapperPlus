@@ -13,7 +13,7 @@
   },
   "license": "MIT",
   "icon": "assets/elytraswapperplus/icon.png",
-  "environment": "CLIENT",
+  "environment": "client",
   "entrypoints": {
     "main": [
       "com.eirmax.fabric.ElytraSwaperPlusFabric"
@@ -27,7 +27,7 @@
   ],
   "depends": {
     "fabricloader": ">=0.16.10",
-    "minecraft": "~1.21.5",
+    "minecraft": "~1.21",
     "java": ">=21",
     "fabric-api": "*"
   },
