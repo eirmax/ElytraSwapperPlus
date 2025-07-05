@@ -8,7 +8,5 @@ import net.neoforged.fml.common.Mod;
 public final class ElytraSwapperPlusNeoForge {
     public ElytraSwapperPlusNeoForge(IEventBus bus) {
        ElytraSwapperPlus.init();
-
-
     }
 }
