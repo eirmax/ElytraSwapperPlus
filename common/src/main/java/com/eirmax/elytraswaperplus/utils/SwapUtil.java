@@ -16,11 +16,8 @@ public class SwapUtil {
     public static void setAutoEquip(boolean value) {
         auto_equip = value;
     }
-    public static void ClientSide(Player player) {
 
 
-
-    }
     public static void tryWearElytra(Player player) {
         ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
         if (chestItem.is(Items.ELYTRA) && chestItem.getDamageValue() < chestItem.getMaxDamage()) {

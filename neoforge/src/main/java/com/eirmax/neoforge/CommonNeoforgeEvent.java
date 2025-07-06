@@ -6,11 +6,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler;
+import net.neoforged.neoforge.network.handling.MainThreadPayloadHandler;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
-@EventBusSubscriber(modid = ElytraSwapperPlus.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ElytraSwapperPlus.MODID)
 public class CommonNeoforgeEvent {
     @SubscribeEvent
     public static void register(final RegisterPayloadHandlersEvent event) {
@@ -18,8 +18,7 @@ public class CommonNeoforgeEvent {
         registrar.playToServer(
                 KeyPressHandler.TYPE,
                 KeyPressHandler.STREAM_CODEC,
-                new DirectionalPayloadHandler<>(
-                        CommonNeoforgeEvent::handleKeyPressOnServer,
+                new MainThreadPayloadHandler<>(
                         CommonNeoforgeEvent::handleKeyPressOnServer
                 )
         );
