@@ -12,7 +12,7 @@ import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
 import java.util.List;
 
-@EventBusSubscriber(modid = ElytraSwapperPlus.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = ElytraSwapperPlus.MODID, value = Dist.CLIENT)
 public class ClientNeoforgeKeybindEvent {
     public static final List<Lazy<KeyMapping>> keyMappings = new ArrayList<>();
 
