@@ -1,4 +1,5 @@
 package com.eirmax.elytraswaperplus.utils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EquipmentSlot;
