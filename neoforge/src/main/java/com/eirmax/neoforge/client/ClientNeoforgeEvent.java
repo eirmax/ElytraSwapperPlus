@@ -1,5 +1,6 @@
 package com.eirmax.neoforge.client;
 
+import com.eirmax.elytraswaperplus.ElytraSwapperPlus;
 import com.eirmax.elytraswaperplus.utils.InventoryUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.KeyMapping;
@@ -10,7 +11,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.common.util.Lazy;
 
-@EventBusSubscriber(modid = "elytraswapperplus", value = Dist.CLIENT)
+@EventBusSubscriber(modid = ElytraSwapperPlus.MODID, value = Dist.CLIENT)
 public class ClientNeoforgeEvent {
     @SubscribeEvent
     public static void onClientTick(ClientTickEvent.Post event) {
